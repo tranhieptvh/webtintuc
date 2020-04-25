@@ -4,6 +4,7 @@ require_once('includes/navbar.php');
 require_once('./../models/users.php');
 
 
+
 $users = new Users;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -32,8 +33,12 @@ if (isset($_POST['id'])) {
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
         $users->updateAvatar($filename, $id);
     }
+    if (isset($_SESSION['update_user_success'])) {
+        unset($_SESSION['update_user_success']);
+    }
     $_SESSION['update_user_success'] = 'Cập nhật thành công';
     header('Location:users_update.php?id=' . $id);
+    // ob_end_flush();
 }
 ?>
 

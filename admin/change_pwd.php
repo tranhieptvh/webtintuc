@@ -11,9 +11,15 @@ if (isset($_POST['npwd'])) {
     $cpwd = $_POST['cpwd'];
     if (($npwd === $cpwd)) {
         $users->change_pwd($npwd, $id);
+        if (isset($_SESSION['change_pwd_success'])) {
+            unset($_SESSION['change_pwd_success']);
+        }
         $_SESSION['change_pwd_success'] = 'Đổi thành công';
         header('Location:change_pwd.php');
     }else {
+        if (isset($_SESSION['change_pwd_fail'])) {
+            unset($_SESSION['change_pwd_fail']);
+        }
         $_SESSION['change_pwd_fail'] = 'Đổi không thành công';
         header('Location:change_pwd.php');
     }

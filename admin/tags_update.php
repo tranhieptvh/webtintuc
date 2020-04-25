@@ -17,6 +17,10 @@ if (isset($_GET['id'])) {
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $tags->update($_POST);
+    if (isset($_SESSION['update_tag_success'])) {
+        unset($_SESSION['update_tag_success']);
+    }
+    $_SESSION['update_tag_success'] = 'Cập nhật thành công';
     header('Location:tags_update.php?id=' . $id);
 }
 ?>

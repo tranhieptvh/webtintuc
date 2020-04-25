@@ -7,6 +7,9 @@ if (isset($_POST['name'])) {
     $tags = new Tags();
     $count = $tags->insert($_POST);
     if ($count == 1) {
+        if (isset($_SESSION['add_tag_success'])) {
+            unset($_SESSION['add_tag_success']);
+        }
         $_SESSION['add_tag_success'] = 'Thêm thành công';
     }
 }
@@ -31,7 +34,7 @@ if (isset($_POST['name'])) {
         }
         ?>
 
-        <form method="POST" >
+        <form method="POST">
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Name</label>
