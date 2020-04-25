@@ -102,6 +102,10 @@ require_once('./../models/users.php');
                     <input type="text" name="address" readonly value="<?php echo $_SESSION['user']['address'] ?>">
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Avatar</label>
+                <img style="width:20%;height:20%;" src="<?php echo $_SESSION['user']['avatar'] ?>" />
+            </div>
         </form>
         <a href="users_update.php?id=<?php echo $_SESSION['user']['id'] ?>" class="btn btn-success">Change Info</a>
         <a href="index.php" class="btn btn-secondary">Back</a>

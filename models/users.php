@@ -50,8 +50,7 @@ class Users extends DB implements IModel
             echo $th->getMessage();
         }
 
-        //tra ve so ban ghi
-        return $stm->rowCount();
+        return $this->db->lastInsertId();
     }
 
     function delete($id)
@@ -95,6 +94,17 @@ class Users extends DB implements IModel
             $row  = $r;
         }
         return $r;
+    }
+
+    function updateAvatar($path, $id)
+    {
+        try {
+            $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+            SET avatar = :avatar WHERE id = :id');
+            $stm->execute(array(':avatar' => $path, ':id' => $id));
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     function change_pwd($pwd, $id)

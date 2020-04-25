@@ -11,12 +11,12 @@ if (isset($_POST['username']) && isset($_POST['pwd'])) {
     $db = new DB;
     $stm = $db->getPDO()->prepare('SELECT * FROM users WHERE username=:username AND pwd=:pwd');
     $stm->execute(array(':username' => $username, ':pwd' => md5($pwd)));
-    $user = $stm->fetchAll();
+    $users = $stm->fetchAll();
     //echo $user['0']['role'];die();
     //var_dump($user[0]);die();
-    if (count($user) == 1) {
-        if ($user['0']['role'] == 0) {
-            $_SESSION['user'] = $user['0'];
+    if (count($users) == 1) {
+        if ($users['0']['role'] == 0) {
+            $_SESSION['user'] = $users['0'];
             header('Location:index.php');
         } else {
             echo 'Bạn không có quyền đăng nhập vào trang admin';

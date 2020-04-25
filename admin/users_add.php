@@ -7,8 +7,14 @@ require_once('./../models/users.php');
 
 if (isset($_POST['username'])) {
     $users = new Users;
-    $count = $users->insert($_POST);
-    if ($count == 1) {
+    $insertId = $users->insert($_POST);
+    if (isset($_FILES['file']) && $_FILES['file']['name'] != '') {
+        $filename = './../uploads/' . time() . $_FILES['file']['name'];
+        // echo $filename;
+        move_uploaded_file($_FILES['file']['tmp_name'], $filename);
+        $users->updateAvatar($filename, $insertId);
+    }
+    if ($insertId != 0) {
         $_SESSION['add_user_success'] = 'Thêm thành công';
     }
 }
@@ -35,7 +41,7 @@ if (isset($_POST['username'])) {
         }
         ?>
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Username</label>
@@ -91,6 +97,12 @@ if (isset($_POST['username'])) {
                 <label class="col-sm-2 col-form-label">Address</label>
                 <div class="col-sm-10">
                     <input type="text" name="address" required="true">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Avatar</label>
+                <div class="col-sm-10">
+                    <input type="file" name="file" />
                 </div>
             </div>
 

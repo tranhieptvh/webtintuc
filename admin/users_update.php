@@ -17,6 +17,21 @@ if (isset($_GET['id'])) {
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $users->update($_POST);
+    if (isset($_FILES['file']) && $_FILES['file']['name'] != '') {
+        $filename = './../uploads/' . time() . $_FILES['file']['name'];
+
+        //xoá file đi
+        if (file_exists($obj['avatar'])) {
+            try {
+                unlink($obj['avatar']);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+
+        move_uploaded_file($_FILES['file']['tmp_name'], $filename);
+        $users->updateAvatar($filename, $id);
+    }
     $_SESSION['update_user_success'] = 'Cập nhật thành công';
     // ob_start();
     header('Location:users_update.php?id=' . $id);
@@ -42,7 +57,7 @@ if (isset($_POST['id'])) {
         }
         ?>
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 
             <input type="hidden" name="id" value="<?php echo $obj['id'] ?>">
             <div class="form-group row">
@@ -93,6 +108,14 @@ if (isset($_POST['id'])) {
                 <label class="col-sm-2 col-form-label">Address</label>
                 <div class="col-sm-10">
                     <input type="text" name="address" value="<?php echo $obj['address'] ?>">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Avatar</label>
+                <img style="width:20%;height:20%;" src="<?php echo $obj['avatar']; ?>" />
+                <div class="col-sm-10">
+                    <input type="file" name="file" />
                 </div>
             </div>
 

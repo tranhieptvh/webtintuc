@@ -2,6 +2,7 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/users.php');
+require_once('./../helper.php');
 
 $users = new Users();
 if (isset($_GET['action'])) {
@@ -9,7 +10,12 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
+                $obj = $users->getById($_GET['id']);
+                if (file_exists($obj['avatar'])) {
+                    unlink($obj['avatar']);
+                }
                 $users->delete($_GET['id']);
+                // header('Location:users.php');
             }
             break;
 
@@ -40,6 +46,7 @@ if (isset($_GET['action'])) {
                     <th scope="col">Fullname</th>
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Avatar</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -50,9 +57,12 @@ if (isset($_GET['action'])) {
 
             <tbody>
                 <?php
-
-                $list = $users->getAll(0, 5);
-
+                if (isset($_GET['page'])) {
+                    $offset = ($_GET['page'] - 1) * 5;
+                } else {
+                    $offset = 0;
+                }
+                $list = $users->getAll($offset, 5);
                 foreach ($list as $r) {
                 ?>
                     <tr>
@@ -67,6 +77,7 @@ if (isset($_GET['action'])) {
                             }
                             ?></td>
                         <td><?php echo $r['email'] ?></td>
+                        <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td>
                             <a class="btn btn-warning" href="users_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
                             <a class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">Xoá</a>
@@ -74,11 +85,21 @@ if (isset($_GET['action'])) {
                     </tr>
                 <?php
                 }
-
                 ?>
             </tbody>
         </table>
+
+        <nav aria-label="...">
+            <ul class="pagination">
+                <?php
+                generatePage($users->getPDO(), 'users', 5);
+                ?>
+            </ul>
+        </nav>
     </div>
+
+
+
 
 
 </div>

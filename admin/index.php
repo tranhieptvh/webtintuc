@@ -16,6 +16,9 @@ require_once('includes/navbar.php');
 
 
     <h5>đây là trang admin</h5>
+    <?php
+        var_dump($_SESSION['user']);
+    ?>
 
 
 </div>
