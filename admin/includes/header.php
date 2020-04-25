@@ -5,19 +5,21 @@ session_start();
 if (isset($_SESSION['add_user_success'])) {
     unset($_SESSION['add_user_success']);
 }
-
 if (isset($_SESSION['update_user_success'])) {
     unset($_SESSION['update_user_success']);
 }
-
+if (isset($_SESSION['add_tag_success'])) {
+    unset($_SESSION['add_tag_success']);
+}
+if (isset($_SESSION['update_tag_success'])) {
+    unset($_SESSION['update_tag_success']);
+}
 if (isset($_SESSION['change_pwd_success'])) {
     unset($_SESSION['change_pwd_success']);
 }
-
 if (isset($_SESSION['change_pwd_fail'])) {
     unset($_SESSION['change_pwd_fail']);
 }
-
 if (!isset($_SESSION['user'])) {
     header('Location:login.php');
 }

@@ -18,7 +18,6 @@ if (isset($_GET['action'])) {
                 // header('Location:users.php');
             }
             break;
-
         default:
             # code...
             break;
@@ -41,7 +40,7 @@ if (isset($_GET['action'])) {
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Username</th>
                     <th scope="col">Fullname</th>
                     <th scope="col">Role</th>

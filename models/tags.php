@@ -1,4 +1,7 @@
 <?php
+require_once('./../db.php');
+require_once('imodel.php');
+
 class Tags extends DB implements IModel
 {
     const tableName = 'tags';
@@ -8,7 +11,6 @@ class Tags extends DB implements IModel
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    //lấy tất cả tag
     function getAll($offset, $count)
     {
         $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
@@ -16,13 +18,13 @@ class Tags extends DB implements IModel
         return $stm->fetchAll();
     }
 
-    //add tag
     function insert($payload)
     {
         try {
             $name = $payload['name'];
 
-            $stm = $this->db->prepare('INSERT INTO ' . self::tableName . 'name VALUES :name');
+            $stm = $this->db->prepare('INSERT INTO ' .
+                self::tableName . '(name) VALUES(:name)');
             $stm->execute(array(
                 ':name' => $name
             ));
@@ -33,30 +35,28 @@ class Tags extends DB implements IModel
         return $stm->rowCount();
     }
 
-    //delete tag
     function delete($id)
     {
         $this->db->query("DELETE FROM " . self::tableName . " WHERE id = " . $id);
     }
 
-    //update tag
     function update($payload)
     {
         try {
+            $id = $payload['id'];
             $name = $payload['name'];
 
-            $stm = $this->db->prepare('UPDATE ' . self::tableName . 'SET name = :name WHERE id = :id');
+            $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+            SET name = :name WHERE id = :id');
             $stm->execute(array(
+                ':id' => $id,
                 ':name' => $name
             ));
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
-        //tra ve so ban ghi
-        return $stm->rowCount();
     }
 
-    //get tag by id
     function getById($id)
     {
         $rows = $this->db->query("SELECT * FROM " . self::tableName . " WHERE id= $id");

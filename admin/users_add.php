@@ -35,7 +35,6 @@ if (isset($_POST['username'])) {
         ?>
             <div class="alert alert-success" role="alert">
                 <?php echo $_SESSION['add_user_success'] ?>
-
             </div>
         <?php
         }
