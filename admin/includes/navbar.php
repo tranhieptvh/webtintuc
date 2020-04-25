@@ -1,4 +1,4 @@
-<!-- Sidebar -->
+﻿<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -152,7 +152,7 @@
                             }
                             ?>
                         </span>
-                        <img class="img-profile rounded-circle" src="<?php echo $_SESSION['user']['avatar'];?>">
+                        <img class="img-profile rounded-circle" src="<?php echo $_SESSION['user']['avatar']?>">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

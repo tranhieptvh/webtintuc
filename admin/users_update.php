@@ -33,7 +33,6 @@ if (isset($_POST['id'])) {
         $users->updateAvatar($filename, $id);
     }
     $_SESSION['update_user_success'] = 'Cập nhật thành công';
-    // ob_start();
     header('Location:users_update.php?id=' . $id);
 }
 ?>

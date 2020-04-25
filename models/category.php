@@ -1,5 +1,9 @@
 <?php
-class Category extends DB implements IModel{
+require_once('./../db.php');
+require_once('imodel.php');
+
+class Category extends DB implements IModel
+{
     const tableName = 'category';
     public function __construct()
     {
@@ -7,28 +11,58 @@ class Category extends DB implements IModel{
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    //lấy tất cả category
-    function getAll($offset, $count){
-
+    function getAll($offset, $count)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
+        $stm->execute();
+        return $stm->fetchAll();
     }
 
-    //add category
-    function insert($payload){
+    function insert($payload)
+    {
+        try {
+            $name = $payload['name'];
 
+            $stm = $this->db->prepare('INSERT INTO ' .
+                self::tableName . '(name) VALUES(:name)');
+            $stm->execute(array(
+                ':name' => $name
+            ));
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
+        //tra ve so ban ghi
+        return $stm->rowCount();
     }
 
-    //delete category
-    function delete($id){
-
+    function delete($id)
+    {
+        $this->db->query("DELETE FROM " . self::tableName . " WHERE id = " . $id);
     }
 
-    //update category
-    function update($payload){
+    function update($payload)
+    {
+        try {
+            $id = $payload['id'];
+            $name = $payload['name'];
 
+            $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+            SET name = :name WHERE id = :id');
+            $stm->execute(array(
+                ':id' => $id,
+                ':name' => $name
+            ));
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 
-    //get category by id
-    function getById($id){
-        
+    function getById($id)
+    {
+        $rows = $this->db->query("SELECT * FROM " . self::tableName . " WHERE id= $id");
+        foreach ($rows as $r) {
+            $row  = $r;
+        }
+        return $r;
     }
 }
