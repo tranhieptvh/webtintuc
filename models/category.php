@@ -22,11 +22,13 @@ class Category extends DB implements IModel
     {
         try {
             $name = $payload['name'];
+            $parent_id = $payload['parent_id'];
 
             $stm = $this->db->prepare('INSERT INTO ' .
-                self::tableName . '(name) VALUES(:name)');
+                self::tableName . '(name, parent_id) VALUES(:name, :parent_id)');
             $stm->execute(array(
-                ':name' => $name
+                ':name' => $name,
+                ':parent_id' => $parent_id
             ));
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -45,12 +47,14 @@ class Category extends DB implements IModel
         try {
             $id = $payload['id'];
             $name = $payload['name'];
+            $parent_id = $payload['parent_id'];
 
             $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
-            SET name = :name WHERE id = :id');
+            SET name = :name, parent_id = :parent_id WHERE id = :id');
             $stm->execute(array(
                 ':id' => $id,
-                ':name' => $name
+                ':name' => $name,
+                ':parent_id' => $parent_id
             ));
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -64,5 +68,12 @@ class Category extends DB implements IModel
             $row  = $r;
         }
         return $r;
+    }
+
+    function getByParentId($parent_id)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE parent_id= $parent_id");
+        $stm ->execute();
+        return $stm->fetchAll();
     }
 }

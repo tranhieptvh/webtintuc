@@ -41,7 +41,7 @@ if (isset($_POST['id'])) {
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Sửa người dùng</h1>
+        <h1 class="h3 mb-0 text-gray-800">Update users</h1>
     </div>
 
     <div class="container">

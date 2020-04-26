@@ -7,9 +7,6 @@ if (isset($_POST['name'])) {
     $tags = new Tags();
     $count = $tags->insert($_POST);
     if ($count == 1) {
-        if (isset($_SESSION['add_tag_success'])) {
-            unset($_SESSION['add_tag_success']);
-        }
         $_SESSION['add_tag_success'] = 'Thêm thành công';
     }
 }
@@ -20,7 +17,7 @@ if (isset($_POST['name'])) {
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Thêm tag</h1>
+        <h1 class="h3 mb-0 text-gray-800">Add tags</h1>
     </div>
 
     <div class="container">

@@ -25,9 +25,6 @@ if (isset($_GET['action'])) {
 }
 ?>
 
-
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -49,7 +46,7 @@ if (isset($_GET['action'])) {
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
-            <br>
+            
             <a class="btn btn-primary" href="users_add.php">Thêm</a>
             <br>
             <br>
@@ -79,7 +76,7 @@ if (isset($_GET['action'])) {
                         <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td>
                             <a class="btn btn-warning" href="users_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">Xoá</a>
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>
                         </td>
                     </tr>
                 <?php
@@ -97,33 +94,8 @@ if (isset($_GET['action'])) {
         </nav>
     </div>
 
-
-
-
-
 </div>
 <!-- /.container-fluid -->
-
-<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Xóa không?</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="?action=delete&id=<?php echo $r['id'] ?>">Xóa chứ để làm gì</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 <?php
 require_once('includes/footer.php');
