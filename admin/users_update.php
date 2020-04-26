@@ -3,8 +3,6 @@ require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/users.php');
 
-
-
 $users = new Users;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -33,10 +31,6 @@ if (isset($_POST['id'])) {
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
         $users->updateAvatar($filename, $id);
     }
-    if (isset($_SESSION['update_user_success'])) {
-        unset($_SESSION['update_user_success']);
-    }
-    $_SESSION['update_user_success'] = 'Cập nhật thành công';
     header('Location:users_update.php?id=' . $id);
     // ob_end_flush();
 }
@@ -51,15 +45,6 @@ if (isset($_POST['id'])) {
     </div>
 
     <div class="container">
-        <?php
-        if (isset($_SESSION['update_user_success'])) {
-        ?>
-            <div class="alert alert-success" role="alert">
-                <?php echo $_SESSION['update_user_success'] ?>
-            </div>
-        <?php
-        }
-        ?>
 
         <form method="POST" enctype="multipart/form-data">
 

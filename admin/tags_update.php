@@ -3,7 +3,6 @@ require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/tags.php');
 
-
 $tags = new Tags();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -17,10 +16,6 @@ if (isset($_GET['id'])) {
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $tags->update($_POST);
-    if (isset($_SESSION['update_tag_success'])) {
-        unset($_SESSION['update_tag_success']);
-    }
-    $_SESSION['update_tag_success'] = 'Cập nhật thành công';
     header('Location:tags_update.php?id=' . $id);
 }
 ?>
@@ -34,15 +29,6 @@ if (isset($_POST['id'])) {
     </div>
 
     <div class="container">
-        <?php
-        if (isset($_SESSION['update_tag_success'])) {
-        ?>
-            <div class="alert alert-success" role="alert">
-                <?php echo $_SESSION['update_tag_success'] ?>
-            </div>
-        <?php
-        }
-        ?>
 
         <form method="POST">
 
