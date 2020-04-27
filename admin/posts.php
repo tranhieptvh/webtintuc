@@ -10,12 +10,14 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
+                var_dump($_GET['id']);
+                die();
                 $obj = $posts->getById($_GET['id']);
-                if (file_exists($obj['img'])) {
-                    unlink($obj['img']);
+                if (file_exists($obj['avatar'])) {
+                    unlink($obj['avatar']);
                 }
                 $posts->delete($_GET['id']);
-                // header('Location:posts.php');
+                header('Location:posts.php');
             }
             break;
         default:
@@ -40,7 +42,7 @@ if (isset($_GET['action'])) {
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Avatar</th>
                     <th scope="col">Created by</th>
                     <th scope="col">Category</th>
                     <th scope="col">Thao tác</th>
@@ -50,23 +52,26 @@ if (isset($_GET['action'])) {
             <br>
             <tbody>
                 <?php
+                $count = 5;
                 if (isset($_GET['page'])) {
-                    $offset = ($_GET['page'] - 1) * 5;
+                    $offset = ($_GET['page'] - 1) * $count;
                 } else {
                     $offset = 0;
                 }
-                $list = $posts->getAllLimit($offset, 5);
+                $list = $posts->getAllLimit($offset, $count);
+                // var_dump($list);die();
                 foreach ($list as $r) {
                 ?>
                     <tr>
                         <td><?php echo $r['id'] ?></td>
                         <td style="width:500px;"><?php echo $r['title'] ?></td>
-                        <td><img style="width:50px;height:50px;" src="<?php echo $r['img']; ?>" /></td>
+                        <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td><?php echo $r['username'] ?></td>
                         <td><?php echo $r['name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="posts_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <!-- <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>">Xóa</a> -->
                         </td>
                     </tr>
                 <?php
@@ -78,7 +83,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($posts->getPDO(), 'posts', 5);
+                generatePage($posts->getPDO(), 'posts', $count);
                 ?>
             </ul>
         </nav>

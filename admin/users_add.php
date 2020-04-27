@@ -56,8 +56,8 @@ if (isset($_POST['username'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Role</label>
                 <div class="col-sm-10">
-                    <input type="radio" name="role" value="0">Admin <br>
-                    <input type="radio" name="role" value="1">Normal user
+                    <input type="radio" required="true" name="role" value="0">Admin <br>
+                    <input type="radio" required="true" name="role" value="1">Normal user
                 </div>
             </div>
             <div class="form-group row">
@@ -75,8 +75,8 @@ if (isset($_POST['username'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Gender</label>
                 <div class="col-sm-10">
-                    <input type="radio" name="gender" value="1">Male <br>
-                    <input type="radio" name="gender" value="2">Female
+                    <input type="radio" required="true" name="gender" value="1">Male <br>
+                    <input type="radio" required="true" name="gender" value="2">Female
                 </div>
             </div>
             <div class="form-group row">

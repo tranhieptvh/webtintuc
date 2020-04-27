@@ -46,12 +46,13 @@ if (isset($_GET['action'])) {
 
             <tbody>
                 <?php
+                $count = 5;
                 if (isset($_GET['page'])) {
-                    $offset = ($_GET['page'] - 1) * 5;
+                    $offset = ($_GET['page'] - 1) * $count;
                 } else {
                     $offset = 0;
                 }
-                $list = $cate->getAllLimit($offset, 5);
+                $list = $cate->getAllLimit($offset, $count);
                 foreach ($list as $r) {
                 ?>
                     <tr>
@@ -60,7 +61,7 @@ if (isset($_GET['action'])) {
                         <td><?php echo $r['parent_id'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="cate_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
                         </td>
                     </tr>
                 <?php
@@ -72,7 +73,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($cate->getPDO(), 'category', 5);
+                generatePage($cate->getPDO(), 'category', $count);
                 ?>
             </ul>
         </nav>

@@ -20,7 +20,8 @@ class Posts extends DB implements IModel
 
     function getAllLimit($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " 
+        $stm = $this->db->prepare("SELECT " . self::tableName . ".id, title, " . self::tableName . ".avatar, username, name 
+        FROM " . self::tableName . " 
         INNER JOIN category ON posts.cate_id = category.id 
         INNER JOIN users ON posts.created_by_id = users.id 
         LIMIT $offset,$count");
@@ -38,7 +39,7 @@ class Posts extends DB implements IModel
             $tag_id = $payload['tag_id'];
             $cate_id = $payload['cate_id'];
             $is_featured = $payload['is_featured'];
-            
+
             $stm = $this->db->prepare('INSERT INTO ' .
                 self::tableName . '(title, description,content, created_by_id, tag_id, cate_id, is_featured)
              VALUES(:title, :description, :content, :created_by_id, :tag_id, :cate_id, :is_featured)');
@@ -79,7 +80,13 @@ class Posts extends DB implements IModel
             WHERE id = :id');
             $stm->execute(array(
                 ':id' => $id,
-
+                ':title' => $title,
+                ':description' => $description,
+                ':content' => $content,
+                ':created_by_id' => $created_by_id,
+                ':tag_id' => $tag_id,
+                ':cate_id' => $cate_id,
+                ':is_featured' => $is_featured
             ));
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -102,12 +109,12 @@ class Posts extends DB implements IModel
         return $stm->fetchAll();
     }
 
-    function updateImage($path, $id)
+    function updateAvatar($path, $id)
     {
         try {
             $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
-            SET img = :img WHERE id = :id');
-            $stm->execute(array(':img' => $path, ':id' => $id));
+            SET avatar = :avatar WHERE id = :id');
+            $stm->execute(array(':avatar' => $path, ':id' => $id));
         } catch (Exception $e) {
             echo $e->getMessage();
         }

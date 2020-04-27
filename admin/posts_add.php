@@ -14,7 +14,7 @@ if (isset($_POST['title'])) {
         $filename = './../uploads/' . time() . $_FILES['file']['name'];
         // echo $filename;
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
-        $posts->updateImage($filename, $insertId);
+        $posts->updateAvatar($filename, $insertId);
     }
     if ($insertId != 0) {
         $_SESSION['add_post_success'] = 'Thêm thành công';
@@ -47,19 +47,19 @@ if (isset($_POST['title'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                    <input type="text" name="title" required="true">
+                    <textarea name="title" id="" cols="30" rows="5" required="true"></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-10">
-                    <input type="text" name="description" required="true">
+                    <textarea name="description" id="" cols="30" rows="5"></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Content</label>
                 <div class="col-sm-10">
-                    <input type="text" name="content" required="true">
+                    <textarea name="content" class="ckeditor" required="true"></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -113,8 +113,8 @@ if (isset($_POST['title'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Is Featured?</label>
                 <div class="col-sm-10">
-                    <input type="radio" name="is_featured" value="1">Yes <br>
-                    <input type="radio" name="is_featured" value="0">No
+                    <input type="radio" required="true" name="is_featured" value="1"> Yes <br>
+                    <input type="radio" required="true" name="is_featured" value="0"> No
                 </div>
             </div>
 

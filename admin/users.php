@@ -51,12 +51,13 @@ if (isset($_GET['action'])) {
             <br>
             <tbody>
                 <?php
+                $count = 5;
                 if (isset($_GET['page'])) {
-                    $offset = ($_GET['page'] - 1) * 5;
+                    $offset = ($_GET['page'] - 1) * $count;
                 } else {
                     $offset = 0;
                 }
-                $list = $users->getAllLimit($offset, 5);
+                $list = $users->getAllLimit($offset, $count);
                 foreach ($list as $r) {
                 ?>
                     <tr>
@@ -74,7 +75,7 @@ if (isset($_GET['action'])) {
                         <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td>
                             <a class="btn btn-warning" href="users_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
                         </td>
                     </tr>
                 <?php
@@ -86,7 +87,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($users->getPDO(), 'users', 5);
+                generatePage($users->getPDO(), 'users', $count);
                 ?>
             </ul>
         </nav>

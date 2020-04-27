@@ -10,6 +10,7 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
+                // var_dump($_GET['id']);die();
                 $tags->delete($_GET['id']);
                 header('Location:tags.php');
             }
@@ -44,12 +45,13 @@ if (isset($_GET['action'])) {
             <br>
             <tbody>
                 <?php
+                $count = 5;
                 if (isset($_GET['page'])) {
-                    $offset = ($_GET['page'] - 1) * 5;
+                    $offset = ($_GET['page'] - 1) * $count;
                 } else {
                     $offset = 0;
                 }
-                $list = $tags->getAllLimit($offset, 5);
+                $list = $tags->getAllLimit($offset, $count);
                 foreach ($list as $r) {
                 ?>
                     <tr>
@@ -57,7 +59,7 @@ if (isset($_GET['action'])) {
                         <td><?php echo $r['name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="tags_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
                         </td>
                     </tr>
                 <?php
@@ -69,7 +71,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($tags->getPDO(), 'tags', 5);
+                generatePage($tags->getPDO(), 'tags', $count);
                 ?>
             </ul>
         </nav>

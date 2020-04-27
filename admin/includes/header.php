@@ -39,6 +39,8 @@ if (!isset($_SESSION['user'])) {
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+
 </head>
 
 <body id="page-top">
