@@ -34,6 +34,7 @@ if (isset($_GET['action'])) {
     </div>
 
     <div class="container">
+        <a class="btn btn-primary" href="posts_add.php">Thêm</a>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -45,11 +46,8 @@ if (isset($_GET['action'])) {
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
-
-            <a class="btn btn-primary" href="posts_add.php">Thêm</a>
             <br>
             <br>
-
             <tbody>
                 <?php
                 if (isset($_GET['page'])) {
@@ -64,8 +62,8 @@ if (isset($_GET['action'])) {
                         <td><?php echo $r['id'] ?></td>
                         <td style="width:500px;"><?php echo $r['title'] ?></td>
                         <td><img style="width:50px;height:50px;" src="<?php echo $r['img']; ?>" /></td>
-                        <td><?php echo $r['created_by_id'] ?></td>
-                        <td><?php echo $r['cate_id'] ?></td>
+                        <td><?php echo $r['username'] ?></td>
+                        <td><?php echo $r['name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="posts_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
                             <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Xoá</a>

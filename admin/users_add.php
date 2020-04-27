@@ -14,9 +14,6 @@ if (isset($_POST['username'])) {
         $users->updateAvatar($filename, $insertId);
     }
     if ($insertId != 0) {
-        if (isset($_SESSION['add_user_success'])) {
-            unset($_SESSION['add_user_success']);
-        }
         $_SESSION['add_user_success'] = 'Thêm thành công';
     }
 }

@@ -2,12 +2,17 @@
 session_start();
 ob_start();
 
-
+if (isset($_SESSION['add_user_success'])) {
+    unset($_SESSION['add_user_success']);
+}
 if (isset($_SESSION['add_cate_success'])) {
     unset($_SESSION['add_cate_success']);
 }
 if (isset($_SESSION['add_tag_success'])) {
     unset($_SESSION['add_tag_success']);
+}
+if (isset($_SESSION['add_post_success'])) {
+    unset($_SESSION['add_post_success']);
 }
 if (!isset($_SESSION['user'])) {
     header('Location:login.php');

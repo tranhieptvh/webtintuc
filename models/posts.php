@@ -13,7 +13,10 @@ class Posts extends DB implements IModel
 
     function getAll($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " 
+        INNER JOIN category ON posts.cate_id = category.id 
+        INNER JOIN users ON posts.created_by_id = users.id 
+        LIMIT $offset,$count");
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -24,24 +27,22 @@ class Posts extends DB implements IModel
             $title = $payload['title'];
             $description = $payload['description'];
             $content = $payload['content'];
-            $img = $payload['img'];
             $created_by_id = $payload['created_by_id'];
             $tag_id = $payload['tag_id'];
-            $is_featured = $payload['is_featured'];
             $cate_id = $payload['cate_id'];
-
+            $is_featured = $payload['is_featured'];
+            
             $stm = $this->db->prepare('INSERT INTO ' .
-                self::tableName . '(title, description,content, img, created_by_id, tag_id, is_featured, cate_id)
-             VALUES(:title, :description, :content, :img, :created_by_id, :tag_id, :is_featured, :cate_id)');
+                self::tableName . '(title, description,content, created_by_id, tag_id, cate_id, is_featured)
+             VALUES(:title, :description, :content, :created_by_id, :tag_id, :cate_id, :is_featured)');
             $stm->execute(array(
                 ':title' => $title,
                 ':description' => $description,
                 ':content' => $content,
-                ':img' => $img,
                 ':created_by_id' => $created_by_id,
                 ':tag_id' => $tag_id,
-                ':is_featured' => $is_featured,
-                ':cate_id' => $cate_id
+                ':cate_id' => $cate_id,
+                ':is_featured' => $is_featured
             ));
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -61,14 +62,13 @@ class Posts extends DB implements IModel
             $title = $payload['title'];
             $description = $payload['description'];
             $content = $payload['content'];
-            $img = $payload['img'];
             $created_by_id = $payload['created_by_id'];
             $tag_id = $payload['tag_id'];
-            $is_featured = $payload['is_featured'];
             $cate_id = $payload['cate_id'];
+            $is_featured = $payload['is_featured'];
 
             $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
-            SET title= :title, description = :description, content = :content, img = :img, created_by_id = :created_by_id, tag_id = :tag_id, is_featured = :is_featured, cate_id = :cate_id
+            SET title= :title, description = :description, content = :content, created_by_id = :created_by_id, tag_id = :tag_id, is_featured = :is_featured, cate_id = :cate_id
             WHERE id = :id');
             $stm->execute(array(
                 ':id' => $id,
@@ -93,5 +93,16 @@ class Posts extends DB implements IModel
         $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE cate_id= $cate_id");
         $stm->execute();
         return $stm->fetchAll();
+    }
+
+    function updateImage($path, $id)
+    {
+        try {
+            $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+            SET img = :img WHERE id = :id');
+            $stm->execute(array(':img' => $path, ':id' => $id));
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }

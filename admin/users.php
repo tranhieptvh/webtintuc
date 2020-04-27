@@ -34,6 +34,7 @@ if (isset($_GET['action'])) {
     </div>
 
     <div class="container">
+        <a class="btn btn-primary" href="users_add.php">Thêm</a>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -46,11 +47,8 @@ if (isset($_GET['action'])) {
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
-            
-            <a class="btn btn-primary" href="users_add.php">Thêm</a>
             <br>
             <br>
-
             <tbody>
                 <?php
                 if (isset($_GET['page'])) {
