@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
                     unlink($obj['avatar']);
                 }
                 $users->delete($_GET['id']);
-                // header('Location:users.php');
+                header('Location:users.php');
             }
             break;
         default:
@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Quản lý người dùng</h1>
+        <h1 class="h3 mb-0 text-gray-800">Quản lý userrs</h1>
     </div>
 
     <div class="container">

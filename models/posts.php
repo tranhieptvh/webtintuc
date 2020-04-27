@@ -1,5 +1,9 @@
 <?php
-class Posts extends DB implements IModel{
+require_once('./../db.php');
+require_once('imodel.php');
+
+class Posts extends DB implements IModel
+{
     const tableName = 'posts';
     public function __construct()
     {
@@ -7,28 +11,87 @@ class Posts extends DB implements IModel{
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    //lấy tất cả bài post
-    function getAll($offset, $count){
-
+    function getAll($offset, $count)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
+        $stm->execute();
+        return $stm->fetchAll();
     }
 
-    //add post
-    function insert($payload){
+    function insert($payload)
+    {
+        try {
+            $title = $payload['title'];
+            $description = $payload['description'];
+            $content = $payload['content'];
+            $img = $payload['img'];
+            $created_by_id = $payload['created_by_id'];
+            $tag_id = $payload['tag_id'];
+            $is_featured = $payload['is_featured'];
+            $cate_id = $payload['cate_id'];
 
+            $stm = $this->db->prepare('INSERT INTO ' .
+                self::tableName . '(title, description,content, img, created_by_id, tag_id, is_featured, cate_id)
+             VALUES(:title, :description, :content, :img, :created_by_id, :tag_id, :is_featured, :cate_id)');
+            $stm->execute(array(
+                ':title' => $title,
+                ':description' => $description,
+                ':content' => $content,
+                ':img' => $img,
+                ':created_by_id' => $created_by_id,
+                ':tag_id' => $tag_id,
+                ':is_featured' => $is_featured,
+                ':cate_id' => $cate_id
+            ));
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
+        return $this->db->lastInsertId();
     }
 
-    //delete post
-    function delete($id){
-
+    function delete($id)
+    {
+        $this->db->query("DELETE FROM " . self::tableName . " WHERE id = " . $id);
     }
 
-    //update post
-    function update($payload){
+    function update($payload)
+    {
+        try {
+            $id = $payload['id'];
+            $title = $payload['title'];
+            $description = $payload['description'];
+            $content = $payload['content'];
+            $img = $payload['img'];
+            $created_by_id = $payload['created_by_id'];
+            $tag_id = $payload['tag_id'];
+            $is_featured = $payload['is_featured'];
+            $cate_id = $payload['cate_id'];
 
+            $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+            SET title= :title, description = :description, content = :content, img = :img, created_by_id = :created_by_id, tag_id = :tag_id, is_featured = :is_featured, cate_id = :cate_id
+            WHERE id = :id');
+            $stm->execute(array(
+                ':id' => $id,
+
+            ));
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 
-    //get post by id
-    function getById($id){
-        
+    function getById($id)
+    {
+        $rows = $this->db->query("SELECT * FROM " . self::tableName . " WHERE id= $id");
+        foreach ($rows as $r) {
+            $row  = $r;
+        }
+        return $r;
+    }
+
+    function getByCategory($cate_id)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE cate_id= $cate_id");
+        $stm->execute();
+        return $stm->fetchAll();
     }
 }

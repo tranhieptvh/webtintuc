@@ -45,7 +45,7 @@
     <li class="nav-item">
         <a class="nav-link" href="./tags.php">
             <i class="fas fa-fw fa-table"></i>
-            <span>Quản lý tags</span></a>
+            <span>Quản lý Tags</span></a>
     </li>
 
     <!-- Nav Item - Comments -->

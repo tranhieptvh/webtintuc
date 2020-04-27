@@ -11,6 +11,7 @@ if (isset($_GET['action'])) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
                 $tags->delete($_GET['id']);
+                header('Location:tags.php');
             }
             break;
         default:

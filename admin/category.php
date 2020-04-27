@@ -11,6 +11,7 @@ if (isset($_GET['action'])) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
                 $cate->delete($_GET['id']);
+                header('Location:category.php');
             }
             break;
         default:
