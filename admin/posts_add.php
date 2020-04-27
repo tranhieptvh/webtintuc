@@ -2,6 +2,9 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/posts.php');
+require_once('./../models/users.php');
+require_once('./../models/category.php');
+require_once('./../models/tags.php');
 
 
 if (isset($_POST['title'])) {
@@ -62,19 +65,49 @@ if (isset($_POST['title'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Created by</label>
                 <div class="col-sm-10">
-                    <input type="text" name="created_by_id" required="true">
+                    <select class="custom-select col-sm-2" name="created_by_id">
+                        <?php
+                        $users = new Users;
+                        $listUsers = $users->getByRole(0);
+                        foreach ($listUsers as $r) {
+                        ?>
+                            <option value="<?php echo $r['id'] ?>"><?php echo $r['username'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Category</label>
                 <div class="col-sm-10">
-                    <input type="text" name="cate_id" required="true">
+                    <select class="custom-select col-sm-2" name="cate_id">
+                        <?php
+                        $cate = new Category();
+                        $listCate = $cate->getAll();
+                        foreach ($listCate as $r) {
+                        ?>
+                            <option value="<?php echo $r['id'] ?>"><?php echo $r['name'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tag</label>
                 <div class="col-sm-10">
-                    <input type="text" name="tag_id" required="true">
+                    <select class="custom-select col-sm-2" name="tag_id">
+                        <?php
+                        $tags = new Tags();
+                        $listTags = $tags->getAll();
+                        foreach ($listTags as $r) {
+                        ?>
+                            <option value="<?php echo $r['id'] ?>"><?php echo $r['name'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

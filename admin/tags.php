@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $offset = 0;
                 }
-                $list = $tags->getAll($offset, 5);
+                $list = $tags->getAllLimit($offset, 5);
                 foreach ($list as $r) {
                 ?>
                     <tr>

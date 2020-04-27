@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $offset = 0;
                 }
-                $list = $posts->getAll($offset, 5);
+                $list = $posts->getAllLimit($offset, 5);
                 foreach ($list as $r) {
                 ?>
                     <tr>

@@ -11,7 +11,14 @@ class Category extends DB implements IModel
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    function getAll($offset, $count)
+    function getAll()
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    function getAllLimit($offset, $count)
     {
         $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
         $stm->execute();
