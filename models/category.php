@@ -83,4 +83,12 @@ class Category extends DB implements IModel
         $stm ->execute();
         return $stm->fetchAll();
     }
+
+    function getCount(){
+        $row = $this->db->query('select count(*) as count from ' . self::tableName);
+        foreach ($row as $r) {
+            $count = $r['count'];
+        }
+        return $count;
+    }
 }

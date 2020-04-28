@@ -48,12 +48,12 @@
             <span>Quản lý Tags</span></a>
     </li>
 
-    <!-- Nav Item - Comments -->
+    <!-- Nav Item - Comments
     <li class="nav-item">
         <a class="nav-link" href="./comments.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Quản lý Comments</span></a>
-    </li>
+    </li> -->
 
 
 
