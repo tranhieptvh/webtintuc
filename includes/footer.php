@@ -1,12 +1,11 @@
-    <!-- ##### Footer Area Start ##### -->
-<footer class="footer-area">
+    <footer class="footer-area">
         <div class="container">
             <div class="row">
                 <!-- Footer Widget Area -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="footer-widget">
                         <!-- Logo -->
-                        <a href="index.html" class="foo-logo"><img src="img/core-img/logo2.png" alt=""></a>
+                        <a href="index.php" class="foo-logo"><img src="img/core-img/logo2.png" alt=""></a>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <div class="footer-social-info">
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -106,9 +105,13 @@
                 <div class="row">
                     <!-- Copywrite Text -->
                     <div class="col-12 col-sm-6">
-                        <p class="copywrite-text"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        <p class="copywrite-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
                     </div>
                     <div class="col-12 col-sm-6">
                         <nav class="footer-nav">
@@ -137,6 +140,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-</body>
+    </body>
 
-</html>
+    </html>
