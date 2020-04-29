@@ -131,48 +131,10 @@ function printMenu($pdo, $parent_id)
                     </span>
                 </li>
 
-                <li>
-                    <a href="category-01.html">News</a>
-                </li>
-
-                <li>
-                    <a href="category-02.html">Entertainment </a>
-                </li>
-
-                <li>
-                    <a href="category-01.html">Business</a>
-                </li>
-
-                <li>
-                    <a href="category-02.html">Travel</a>
-                </li>
-
-                <li>
-                    <a href="category-01.html">Life Style</a>
-                </li>
-
-                <li>
-                    <a href="category-02.html">Video</a>
-                </li>
-
-                <li>
-                    <a href="#">Features</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="category-01.html">Category Page v1</a></li>
-                        <li><a href="category-02.html">Category Page v2</a></li>
-                        <li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
-                        <li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
-                        <li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
-                        <li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
-                        <li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
-                </li>
+                <?php
+                //  in menu từ danh mục cha
+                printMenu($pdo, 0);
+                ?>
             </ul>
         </div>
 
@@ -203,8 +165,10 @@ function printMenu($pdo, $parent_id)
                             <a href="index.php">Home</a>
                         </li>
 
-                        <?php //in menu từ danh mục cha
-                        printMenu($pdo, 0); ?>
+                        <?php
+                        //  in menu từ danh mục cha
+                        printMenu($pdo, 0);
+                        ?>
                     </ul>
                 </nav>
             </div>
