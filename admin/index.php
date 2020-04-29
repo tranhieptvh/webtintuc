@@ -66,7 +66,7 @@ require_once('./../models/tags.php');
     <!-- End of table info -->
 
     <?php
-        $list = $posts->getLatestPosts();
+        $list = $posts->getPostsFeature(0,1);
         var_dump($list);die();
     ?>
 

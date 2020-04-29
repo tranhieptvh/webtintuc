@@ -120,27 +120,32 @@ class Posts extends DB implements IModel
         }
     }
 
-    function getCount(){
-        $row = $this->db->query('select count(*) as count from ' . self::tableName);
+    function getCount()
+    {
+        $row = $this->db->query('SELECT count(*) AS count FROM ' . self::tableName);
         foreach ($row as $r) {
             $count = $r['count'];
         }
         return $count;
     }
 
-    function getPostsFeatured(){
-        $stm = $this->db->prepare("SELECT * FROM" . self::tableName . " WHERE is_featured=1");
+    function getPostsFeature($offset1, $offset2)
+    {
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
+        WHERE is_featured=1 ORDER BY id DESC LIMIT ' . $offset1 . ',' . $offset2);
         $stm->execute();
         return $stm->fetchAll();
     }
 
-    function getPostsViews(){
+    function getPostsViews()
+    {
         $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY views DESC LIMIT 0,5");
         $stm->execute();
         return $stm->fetchAll();
     }
 
-    function getLatestPosts(){
+    function getLatestPosts()
+    {
         $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY id DESC LIMIT 0,5");
         $stm->execute();
         return $stm->fetchAll();
