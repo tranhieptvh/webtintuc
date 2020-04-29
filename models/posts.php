@@ -129,10 +129,10 @@ class Posts extends DB implements IModel
         return $count;
     }
 
-    function getPostsFeature($offset1, $offset2)
+    function getPostsFeature($offset, $count)
     {
         $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
-        WHERE is_featured=1 ORDER BY id DESC LIMIT ' . $offset1 . ',' . $offset2);
+        WHERE is_featured=1 ORDER BY id DESC LIMIT ' . $offset . ',' . $count);
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -146,7 +146,7 @@ class Posts extends DB implements IModel
 
     function getLatestPosts()
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY id DESC LIMIT 0,5");
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY id DESC LIMIT 0,6");
         $stm->execute();
         return $stm->fetchAll();
     }

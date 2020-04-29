@@ -12,10 +12,10 @@ $posts = new Posts();
                 foreach ($post1 as $r) {
                 ?>
                     <div class="bg-img1 size-a-3 how1 pos-relative" style="background-image: url(<?php echo $r['avatar'] ?>);">
-                        <a href="blog-detail-01.html" class="dis-block how1-child1 trans-03"></a>
+                        <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="dis-block how1-child1 trans-03"></a>
                         <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                             <h3 class="how1-child2 m-t-14 m-b-10">
-                                <a href="blog-detail-01.html" class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03">
+                                <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03">
                                     <?php echo $r['title'] ?>
                                 </a>
                             </h3>
@@ -40,11 +40,11 @@ $posts = new Posts();
                         foreach ($post2 as $r) {
                         ?>
                             <div class="bg-img1 size-a-4 how1 pos-relative" style="background-image: url(<?php echo $r['avatar'] ?>);">
-                                <a href="blog-detail-01.html" class="dis-block how1-child1 trans-03"></a>
+                                <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="dis-block how1-child1 trans-03"></a>
 
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-24">
                                     <h3 class="how1-child2 m-t-14">
-                                        <a href="blog-detail-01.html" class="how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03">
+                                        <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03">
                                             <?php echo $r['title'] ?>
                                         </a>
                                     </h3>
@@ -67,11 +67,11 @@ $posts = new Posts();
                     ?>
                         <div class="col-sm-6 p-rl-1 p-b-2">
                             <div class="bg-img1 size-a-5 how1 pos-relative" style="background-image: url(<?php echo $r['avatar'] ?>);">
-                                <a href="blog-detail-01.html" class="dis-block how1-child1 trans-03"></a>
+                                <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="dis-block how1-child1 trans-03"></a>
 
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                                     <h3 class="how1-child2 m-t-14">
-                                        <a href="blog-detail-01.html" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03">
+                                        <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03">
                                             <?php echo $r['title'] ?>
                                         </a>
                                         <span class="how1-child2">
