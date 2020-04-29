@@ -42,7 +42,7 @@ require_once('posts-feature.php');
 
 <!-- Post -->
 <?php
-require_once('posts-list.php');
+require_once('posts-main.php');
 ?>
 
 <!-- Banner -->
