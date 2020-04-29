@@ -148,7 +148,7 @@ if (isset($_POST['id'])) {
                     <input type="file" name="file" />
                 </div>
             </div>
-            <input type="submit" class="btn btn-success" value="Add"></input>
+            <input type="submit" class="btn btn-success" value="Update"></input>
             <input type="reset" class="btn btn-primary" value=Reset>
             <a href="posts.php" class="btn btn-secondary ">Back</a>
         </form>

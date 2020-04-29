@@ -65,6 +65,11 @@ require_once('./../models/tags.php');
     </table>
     <!-- End of table info -->
 
+    <?php
+        $list = $posts->getLatestPosts();
+        var_dump($list);die();
+    ?>
+
 </div>
 <!-- /.container-fluid -->
 

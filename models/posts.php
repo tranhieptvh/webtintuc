@@ -127,4 +127,22 @@ class Posts extends DB implements IModel
         }
         return $count;
     }
+
+    function getPostsFeatured(){
+        $stm = $this->db->prepare("SELECT * FROM" . self::tableName . " WHERE is_featured=1");
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    function getPostsViews(){
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY views DESC LIMIT 0,5");
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    function getLatestPosts(){
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY id DESC LIMIT 0,5");
+        $stm->execute();
+        return $stm->fetchAll();
+    }
 }
