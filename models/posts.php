@@ -179,4 +179,13 @@ class Posts extends DB implements IModel
         $stm->execute();
         return $stm->fetchAll();
     }
+
+    function getPostsByTagLimit($id, $offset, $count)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " 
+        WHERE tag_id=" . $id . ' 
+        LIMIT ' . $offset . ',' . $count);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
 }
