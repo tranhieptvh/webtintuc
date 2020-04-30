@@ -50,7 +50,7 @@ $tags = new Tags();
             $listTags = $tags->getAll();
             foreach ($listTags as $r) {
             ?>
-                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                <a href="posts-list-tag.php?id=<?php echo $r['id'] ?>" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
                     <?php echo $r['name'] ?>
                 </a>
             <?php

@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($posts->getPDO(), 'posts', $count);
+                generatePage($posts->getCount(), $count);
                 ?>
             </ul>
         </nav>

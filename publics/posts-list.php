@@ -64,7 +64,8 @@ $posts = new Posts();
 				<!-- Pagination -->
 				<div class="flex-wr-s-c m-rl--7 p-t-15">
 					<?php
-					generatePageClient($posts->getPDO(), 'posts', $count);
+					$p = $posts->getAll();
+					generatePageClient(count($p), $count);
 					?>
 				</div>
 			</div>

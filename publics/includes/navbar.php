@@ -9,7 +9,7 @@ function printMenu($pdo, $parent_id)
     //nếu là danh mục cha
     if ($parent_id == 0) {
         foreach ($cats as $r) {
-            echo '<li><a href="#">' . $r['name'] . '</a>';
+            echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a>';
             printMenu($pdo, $r['id']);
             echo '</li>';
         }
@@ -17,7 +17,7 @@ function printMenu($pdo, $parent_id)
         //nếu là danh mục con
         echo '<ul class="sub-menu">';
         foreach ($cats as $r) {
-            echo '<li><a href="#">' . $r['name'] . '</a></li>';
+            echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a></li>';
         }
         echo '</ul>';
     }
@@ -161,7 +161,7 @@ function printMenu($pdo, $parent_id)
                     </a>
 
                     <ul class="main-menu">
-                        <li class="main-menu-active">
+                        <li>
                             <a href="index.php">Home</a>
                         </li>
 

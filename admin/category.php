@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($cate->getPDO(), 'category', $count);
+                generatePage($cate->getCount(), $count);
                 ?>
             </ul>
         </nav>

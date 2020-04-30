@@ -23,7 +23,7 @@ $cats = new Category();
                                 </h3>
 
                                 <!-- View all -->
-                                <a href="posts-list.php?cate_id=<?php echo $r['id'] ?>" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                                <a href="posts-list-category.php?id=<?php echo $r['id'] ?>" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
                                     View all
                                     <i class="fs-12 m-l-5 fa fa-caret-right"></i>
                                 </a>

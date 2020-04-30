@@ -72,7 +72,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($tags->getPDO(), 'tags', $count);
+                generatePage($tags->getCount(), $count);
                 ?>
             </ul>
         </nav>

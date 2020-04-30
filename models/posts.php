@@ -103,11 +103,13 @@ class Posts extends DB implements IModel
         return $r;
     }
 
-    function getByCategory($cate_id)
+    function getCount()
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE cate_id= $cate_id");
-        $stm->execute();
-        return $stm->fetchAll();
+        $row = $this->db->query('select count(*) as count from ' . self::tableName);
+        foreach ($row as $r) {
+            $count = $r['count'];
+        }
+        return $count;
     }
 
     function updateAvatar($path, $id)
@@ -119,15 +121,6 @@ class Posts extends DB implements IModel
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-    }
-
-    function getCount()
-    {
-        $row = $this->db->query('SELECT count(*) AS count FROM ' . self::tableName);
-        foreach ($row as $r) {
-            $count = $r['count'];
-        }
-        return $count;
     }
 
     function getPostsFeature($offset, $count)
@@ -163,6 +156,26 @@ class Posts extends DB implements IModel
         WHERE ' . self::tableName . '.cate_id=' . $id . ' OR category.parent_id=' . $id . ' 
         ORDER BY ' . self::tableName . '.id DESC 
         LIMIT ' . $offset . ',' . $count);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    // function getAllPostsByCategory($id)
+    // {
+
+    //     $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, category.parent_id AS parent_id, cate_id
+    //     FROM ' . self::tableName . ' 
+    //     INNER JOIN category 
+    //     ON ' . self::tableName . '.cate_id = category.id 
+    //     WHERE ' . self::tableName . '.cate_id=' . $id . ' OR category.parent_id=' . $id . ' 
+    //     ORDER BY ' . self::tableName . '.id DESC');
+    //     $stm->execute();
+    //     return $stm->fetchAll();
+    // }
+
+    function getPostsByTag($id)
+    {
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE tag_id=" . $id);
         $stm->execute();
         return $stm->fetchAll();
     }

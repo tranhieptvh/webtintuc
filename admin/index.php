@@ -35,8 +35,10 @@ require_once('./../models/tags.php');
                 <td>
                     <?php
                     $users = new Users();
-                    $countUsers = $users->getCount();
-                    echo $countUsers;
+                    $u = $users->getAll();
+                    // $countUsers = $users->getCount();
+                    // echo $countUsers;
+                    echo count($u);
                     ?>
                 </td>
                 <td>
