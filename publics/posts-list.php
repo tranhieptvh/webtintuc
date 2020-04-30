@@ -65,7 +65,7 @@ $posts = new Posts();
 				<div class="flex-wr-s-c m-rl--7 p-t-15">
 					<?php
 					$p = $posts->getAll();
-					generatePageClient(count($p), $count);
+					generatePage(count($p), $count, 'client');
 					?>
 				</div>
 			</div>

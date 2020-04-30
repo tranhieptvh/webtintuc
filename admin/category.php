@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($cate->getCount(), $count);
+                generatePage($cate->getCount(), $count, 'admin');
                 ?>
             </ul>
         </nav>

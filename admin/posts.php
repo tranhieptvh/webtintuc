@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($posts->getCount(), $count);
+                generatePage($posts->getCount(), $count, 'admin');
                 ?>
             </ul>
         </nav>
