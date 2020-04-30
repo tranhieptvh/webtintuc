@@ -1,8 +1,6 @@
 <?php
 require_once('./../models/posts.php');
-require_once('./../models/tags.php');
 $posts = new Posts();
-$tags = new Tags();
 ?>
 
 <section class="bg0 p-t-60 p-b-35">
@@ -13,6 +11,12 @@ $tags = new Tags();
                     <h3 class="f1-m-2 cl3 tab01-title">
                         Tin mới nhất
                     </h3>
+
+                    <!-- View all -->
+                    <a href="posts-list.php" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                        View all
+                        <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+                    </a>
                 </div>
 
                 <div class="row p-t-35">
@@ -51,32 +55,11 @@ $tags = new Tags();
             </div>
 
             <div class="col-md-10 col-lg-4">
-                <div class="p-l-10 p-rl-0-sr991 p-b-20">
 
-                    <!-- Tag -->
-                    <div class="p-b-55">
-                        <div class="how2 how2-cl4 flex-s-c m-b-30">
-                            <h3 class="f1-m-2 cl3 tab01-title">
-                                Tags
-                            </h3>
-                        </div>
+                <?php
+                require_once('right-col.php');
+                ?>
 
-                        <div class="flex-wr-s-s m-rl--5">
-                            <?php
-                            $tags = new Tags();
-                            $listTags = $tags->getAll();
-                            foreach ($listTags as $r) {
-                            ?>
-                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    <?php echo $r['name'] ?>
-                                </a>
-                            <?php
-                            }
-                            ?>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

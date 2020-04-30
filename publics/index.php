@@ -40,9 +40,9 @@ require_once('includes/navbar.php');
 require_once('posts-feature.php');
 ?>
 
-<!-- Post -->
+<!-- Latest -->
 <?php
-require_once('posts-main.php');
+require_once('posts-latest.php');
 ?>
 
 <!-- Banner -->
@@ -54,9 +54,9 @@ require_once('posts-main.php');
     </div>
 </div>
 
-<!-- Latest -->
+<!-- Post -->
 <?php
-require_once('posts-latest.php');
+require_once('posts-category.php');
 ?>
 
 <?php

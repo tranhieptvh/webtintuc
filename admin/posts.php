@@ -56,6 +56,7 @@ if (isset($_GET['action'])) {
                 if (isset($_GET['page'])) {
                     $offset = ($_GET['page'] - 1) * $count;
                 } else {
+                    $_GET['page'] = 1;
                     $offset = 0;
                 }
                 $list = $posts->getAllLimit($offset, $count);
@@ -72,6 +73,7 @@ if (isset($_GET['action'])) {
                             <a class="btn btn-warning" href="posts_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
                             <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
                             <!-- <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>">Xóa</a> -->
+                            <!-- <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>" title="delete" class="delete" onclick="return confirm('Xóa à?')">Xóa</a> -->
                         </td>
                     </tr>
                 <?php

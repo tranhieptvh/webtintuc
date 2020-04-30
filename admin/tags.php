@@ -49,6 +49,7 @@ if (isset($_GET['action'])) {
                 if (isset($_GET['page'])) {
                     $offset = ($_GET['page'] - 1) * $count;
                 } else {
+                    $_GET['page'] = 1;
                     $offset = 0;
                 }
                 $list = $tags->getAllLimit($offset, $count);
