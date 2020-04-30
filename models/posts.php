@@ -20,7 +20,7 @@ class Posts extends DB implements IModel
 
     function getAllLimit($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT " . self::tableName . ".id AS id, title, " . self::tableName . ".avatar, username, name 
+        $stm = $this->db->prepare("SELECT " . self::tableName . ".id AS id, title, " . self::tableName . ".avatar, date_created, username, name 
         FROM " . self::tableName . " 
         INNER JOIN category ON posts.cate_id = category.id 
         INNER JOIN users ON posts.created_by_id = users.id 
