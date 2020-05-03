@@ -8,7 +8,7 @@ $posts = new Posts();
         <div class="row m-rl--1">
             <div class="col-md-6 p-rl-1 p-b-2">
                 <?php
-                $post1 = $posts->getPostsFeature(0, 1);
+                $post1 = $posts->getPostsFeatureLimit(0, 1);
                 foreach ($post1 as $r) {
                 ?>
                     <div class="bg-img1 size-a-3 how1 pos-relative" style="background-image: url(<?php echo $r['avatar'] ?>);">
@@ -20,6 +20,14 @@ $posts = new Posts();
                                 </a>
                             </h3>
                             <span class="how1-child2">
+                                <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                    <?php echo $r['cate_name'] ?>
+                                </a>
+
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
                                 <span class="f1-s-3 cl11">
                                     <?php echo $r['date_created'] ?>
                                 </span>
@@ -36,7 +44,7 @@ $posts = new Posts();
                 <div class="row m-rl--1">
                     <div class="col-12 p-rl-1 p-b-2">
                         <?php
-                        $post2 = $posts->getPostsFeature(1, 1);
+                        $post2 = $posts->getPostsFeatureLimit(1, 1);
                         foreach ($post2 as $r) {
                         ?>
                             <div class="bg-img1 size-a-4 how1 pos-relative" style="background-image: url(<?php echo $r['avatar'] ?>);">
@@ -49,6 +57,14 @@ $posts = new Posts();
                                         </a>
                                     </h3>
                                     <span class="how1-child2">
+                                        <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                            <?php echo $r['cate_name'] ?>
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
                                         <span class="f1-s-3 cl11">
                                             <?php echo $r['date_created'] ?>
                                         </span>
@@ -62,7 +78,7 @@ $posts = new Posts();
                     </div>
 
                     <?php
-                    $post3 = $posts->getPostsFeature(2, 3);
+                    $post3 = $posts->getPostsFeatureLimit(2, 3);
                     foreach ($post3 as $r) {
                     ?>
                         <div class="col-sm-6 p-rl-1 p-b-2">
@@ -75,6 +91,14 @@ $posts = new Posts();
                                             <?php echo $r['title'] ?>
                                         </a>
                                         <span class="how1-child2">
+                                            <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                <?php echo $r['cate_name'] ?>
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
                                             <span class="f1-s-3 cl11">
                                                 <?php echo $r['date_created'] ?>
                                             </span>

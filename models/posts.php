@@ -13,19 +13,19 @@ class Posts extends DB implements IModel
 
     function getAll()
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName);
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName);
         $stm->execute();
         return $stm->fetchAll();
     }
 
     function getAllLimit($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT " . self::tableName . ".id AS id, title, " . self::tableName . ".avatar, date_created, username, category.name AS cate_name, category.id AS cate_id 
-        FROM " . self::tableName . " 
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id AS id, title, ' . self::tableName . '.avatar, date_created, username, category.name AS cate_name, category.id AS cate_id 
+        FROM ' . self::tableName . ' 
         INNER JOIN category ON posts.cate_id = category.id 
         INNER JOIN users ON posts.created_by_id = users.id 
-        ORDER BY " . self::tableName . ".id DESC
-        LIMIT $offset,$count");
+        ORDER BY ' . self::tableName . '.id DESC
+        LIMIT ' . $offset . ',' . $count);
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -61,7 +61,7 @@ class Posts extends DB implements IModel
 
     function delete($id)
     {
-        $this->db->query("DELETE FROM " . self::tableName . " WHERE id = " . $id);
+        $this->db->query('DELETE FROM ' . self::tableName . ' WHERE id = ' . $id);
     }
 
     function update($payload)
@@ -96,7 +96,20 @@ class Posts extends DB implements IModel
 
     function getById($id)
     {
-        $rows = $this->db->query("SELECT * FROM " . self::tableName . " WHERE id= $id");
+        $rows = $this->db->query('SELECT * FROM ' . self::tableName . ' WHERE id=' . $id);
+        foreach ($rows as $r) {
+            $row  = $r;
+        }
+        return $r;
+    }
+
+    function getDetailById($id)
+    {
+        $rows = $this->db->query('SELECT ' . self::tableName . '.id AS id, title, ' . self::tableName . '.avatar, description, content, date_created, likes, views, username, fullname, category.name AS cate_name, category.id AS cate_id 
+        FROM ' . self::tableName . ' 
+        INNER JOIN category ON posts.cate_id = category.id 
+        INNER JOIN users ON posts.created_by_id = users.id 
+        WHERE ' . self::tableName . '.id=' . $id);
         foreach ($rows as $r) {
             $row  = $r;
         }
@@ -123,9 +136,12 @@ class Posts extends DB implements IModel
         }
     }
 
-    function getPostsFeature($offset, $count)
+    function getPostsFeatureLimit($offset, $count)
     {
-        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id 
+        FROM ' . self::tableName . ' 
+        INNER JOIN category 
+        ON ' . self::tableName . '.cate_id = category.id 
         WHERE is_featured=1 
         ORDER BY id DESC 
         LIMIT ' . $offset . ',' . $count);
@@ -135,7 +151,11 @@ class Posts extends DB implements IModel
 
     function getPostsViews()
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY views DESC LIMIT 0,5");
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id 
+        FROM ' . self::tableName . ' 
+        INNER JOIN category 
+        ON ' . self::tableName . '.cate_id = category.id 
+        ORDER BY views DESC LIMIT 0,5');
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -184,17 +204,25 @@ class Posts extends DB implements IModel
 
     function getPostsByTag($id)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " WHERE tag_id=" . $id);
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' WHERE tag_id=' . $id);
         $stm->execute();
         return $stm->fetchAll();
     }
 
     function getPostsByTagLimit($id, $offset, $count)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " 
-        WHERE tag_id=" . $id . ' 
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
+        WHERE tag_id=' . $id . ' 
         LIMIT ' . $offset . ',' . $count);
         $stm->execute();
         return $stm->fetchAll();
+    }
+
+    function updateViews($id)
+    {
+        $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
+        SET views= views+1 
+        WHERE id=' . $id);
+        $stm->execute();
     }
 }

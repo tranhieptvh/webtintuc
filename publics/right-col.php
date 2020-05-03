@@ -18,14 +18,32 @@ $tags = new Tags();
         $listPostsViews = $posts->getPostsViews();
         foreach ($listPostsViews as $r) {
         ?>
-            <li class="flex-wr-sb-s p-b-22">
-                <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                    *
-                </div>
-
-                <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                    <?php echo $r['title'] ?>
+            <li class="flex-wr-sb-s p-b-30">
+                <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="size-w-10 wrap-pic-w hov1 trans-03">
+                    <img src="<?php echo $r['avatar'] ?>" alt=" IMG">
                 </a>
+
+                <div class="size-w-11">
+                    <h6 class="p-b-4">
+                        <a href="posts-detail.php?id=<?php echo $r['id'] ?>" class="f1-s-5 cl3 hov-cl10 trans-03">
+                            <?php echo $r['title'] ?>
+                        </a>
+                    </h6>
+
+                    <span class="cl8 txt-center p-b-24">
+                        <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            <?php echo $r['cate_name'] ?>
+                        </a>
+
+                        <span class="f1-s-3 m-rl-3">
+                            -
+                        </span>
+
+                        <span class="f1-s-3">
+                            <?php echo $r['date_created'] ?>
+                        </span>
+                    </span>
+                </div>
             </li>
         <?php
         }
@@ -59,4 +77,63 @@ $tags = new Tags();
 
         </div>
     </div>
+</div>
+
+<!-- Connected -->
+<div class="p-t-50">
+    <div class="how2 how2-cl4 flex-s-c">
+        <h3 class="f1-m-2 cl3 tab01-title">
+            Stay Connected
+        </h3>
+    </div>
+
+    <ul class="p-t-35">
+        <li class="flex-wr-sb-c p-b-20">
+            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-facebook fs-16 cl0 hov-cl0">
+                <span class="fab fa-facebook-f"></span>
+            </a>
+
+            <div class="size-w-3 flex-wr-sb-c">
+                <span class="f1-s-8 cl3 p-r-20">
+                    6879 Fans
+                </span>
+
+                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
+                    Like
+                </a>
+            </div>
+        </li>
+
+        <li class="flex-wr-sb-c p-b-20">
+            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-twitter fs-16 cl0 hov-cl0">
+                <span class="fab fa-twitter"></span>
+            </a>
+
+            <div class="size-w-3 flex-wr-sb-c">
+                <span class="f1-s-8 cl3 p-r-20">
+                    568 Followers
+                </span>
+
+                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
+                    Follow
+                </a>
+            </div>
+        </li>
+
+        <li class="flex-wr-sb-c p-b-20">
+            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-youtube fs-16 cl0 hov-cl0">
+                <span class="fab fa-youtube"></span>
+            </a>
+
+            <div class="size-w-3 flex-wr-sb-c">
+                <span class="f1-s-8 cl3 p-r-20">
+                    5039 Subscribers
+                </span>
+
+                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
+                    Subscribe
+                </a>
+            </div>
+        </li>
+    </ul>
 </div>
