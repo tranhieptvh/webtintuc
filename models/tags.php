@@ -80,4 +80,16 @@ class Tags extends DB implements IModel
         }
         return $count;
     }
+
+    function checkName($name)
+    {
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' WHERE name = :name');
+        $stm->execute(array(':name' => $name));
+        $users = $stm->fetchAll();
+        if (count($users) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

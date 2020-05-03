@@ -77,7 +77,7 @@ $cats = new Category();
                                         <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                             <!-- Item post -->
                                             <?php
-                                            $post = $posts->getPostsByParentCategoryLimit($r['id'], 2, 4);
+                                            $post = $posts->getPostsByParentCategoryLimit($r['id'], 1, 3);
                                             foreach ($post as $item) {
                                             ?>
                                                 <div class="flex-wr-sb-s m-b-30">

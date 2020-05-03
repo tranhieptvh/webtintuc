@@ -14,6 +14,15 @@ if (isset($_SESSION['add_tag_success'])) {
 if (isset($_SESSION['add_post_success'])) {
     unset($_SESSION['add_post_success']);
 }
+if (isset($_SESSION['username_exist'])) {
+    unset($_SESSION['username_exist']);
+}
+if (isset($_SESSION['tag_exist'])) {
+    unset($_SESSION['tag_exist']);
+}
+if (isset($_SESSION['cate_exist'])) {
+    unset($_SESSION['cate_exist']);
+}
 if (!isset($_SESSION['user'])) {
     header('Location:login.php');
 }

@@ -2,12 +2,19 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/tags.php');
+?>
 
+<?php
+$tags = new Tags();
 if (isset($_POST['name'])) {
-    $tags = new Tags();
-    $count = $tags->insert($_POST);
-    if ($count == 1) {
-        $_SESSION['add_tag_success'] = 'Thêm thành công';
+    $name = $_POST['name'];
+    if ($tags->checkName($name)) {
+        $count = $tags->insert($_POST);
+        if ($count == 1) {
+            $_SESSION['add_tag_success'] = 'Thêm thành công';
+        }
+    } else {
+        $_SESSION['tag_exist'] = 'Tag đã tồn tại';
     }
 }
 ?>
@@ -26,6 +33,16 @@ if (isset($_POST['name'])) {
         ?>
             <div class="alert alert-success" role="alert">
                 <?php echo $_SESSION['add_tag_success'] ?>
+            </div>
+        <?php
+        }
+        ?>
+
+        <?php
+        if (isset($_SESSION['tag_exist'])) {
+        ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $_SESSION['tag_exist'] ?>
             </div>
         <?php
         }

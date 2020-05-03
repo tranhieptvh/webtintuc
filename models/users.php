@@ -135,11 +135,24 @@ class Users extends DB implements IModel
         }
     }
 
-    function getCount(){
+    function getCount()
+    {
         $row = $this->db->query('select count(*) as count from ' . self::tableName);
         foreach ($row as $r) {
             $count = $r['count'];
         }
         return $count;
+    }
+
+    function checkUsername($username)
+    {
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' WHERE username = :username');
+        $stm->execute(array(':username' => $username));
+        $users = $stm->fetchAll();
+        if (count($users) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

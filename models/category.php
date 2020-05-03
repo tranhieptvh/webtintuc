@@ -13,14 +13,14 @@ class Category extends DB implements IModel
 
     function getAll()
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName);
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName ." ORDER BY parent_id ASC");
         $stm->execute();
         return $stm->fetchAll();
     }
 
     function getAllLimit($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " LIMIT $offset,$count");
+        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY parent_id ASC LIMIT $offset,$count");
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -90,5 +90,17 @@ class Category extends DB implements IModel
             $count = $r['count'];
         }
         return $count;
+    }
+
+    function checkName($name)
+    {
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' WHERE name = :name');
+        $stm->execute(array(':name' => $name));
+        $users = $stm->fetchAll();
+        if (count($users) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

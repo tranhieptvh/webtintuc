@@ -78,7 +78,7 @@ $posts = new Posts();
                     </div>
 
                     <?php
-                    $post3 = $posts->getPostsFeatureLimit(2, 3);
+                    $post3 = $posts->getPostsFeatureLimit(2, 2);
                     foreach ($post3 as $r) {
                     ?>
                         <div class="col-sm-6 p-rl-1 p-b-2">

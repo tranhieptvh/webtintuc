@@ -1,4 +1,8 @@
 <?php
+require_once('models/category.php');
+?>
+
+<?php
 function generatePage($allRows, $count, $role)
 {
     $page = ceil($allRows / $count); //11/5 = 2.2 xấp xỉ 3 -> 2 trang
@@ -20,6 +24,35 @@ function generatePage($allRows, $count, $role)
             } else {
                 echo '<a class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7" href="?page=' . $pageCount . '">' . $pageCount . '</a>';
             }
+        }
+    }
+}
+
+function printCategory($parent_id, $role)
+{
+    $cats = new Category();
+    $cate = $cats->getByParentId($parent_id);
+    if ($parent_id == 0) {
+
+        if ($role == 'admin') {
+        }
+        if ($role == 'client') {
+            foreach ($cate as $r) {
+                echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a>';
+                printCategory($r['id'], $role);
+                echo '</li>';
+            }
+        }
+    } else {
+        //nếu là danh mục con
+        if ($role == 'admin') {
+        }
+        if ($role == 'client') {
+            echo '<ul class="sub-menu">';
+            foreach ($cate as $r) {
+                echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a></li>';
+            }
+            echo '</ul>';
         }
     }
 }

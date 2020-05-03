@@ -1,27 +1,5 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;dbname=webtintuc', 'root', '');
-
-$pdo->exec('set names utf8');
-function printMenu($pdo, $parent_id)
-{
-
-    $cats = $pdo->query('SELECT * FROM category WHERE parent_id = ' . $parent_id);
-    //nếu là danh mục cha
-    if ($parent_id == 0) {
-        foreach ($cats as $r) {
-            echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a>';
-            printMenu($pdo, $r['id']);
-            echo '</li>';
-        }
-    } else {
-        //nếu là danh mục con
-        echo '<ul class="sub-menu">';
-        foreach ($cats as $r) {
-            echo '<li><a href="posts-list-category.php?id=' . $r['id'] . '">' . $r['name'] . '</a></li>';
-        }
-        echo '</ul>';
-    }
-}
+require_once('./../helper.php');
 ?>
 
 <!-- Header -->
@@ -133,7 +111,7 @@ function printMenu($pdo, $parent_id)
 
                 <?php
                 //  in menu từ danh mục cha
-                printMenu($pdo, 0);
+                printCategory(0,'client');
                 ?>
             </ul>
         </div>
@@ -167,7 +145,7 @@ function printMenu($pdo, $parent_id)
 
                         <?php
                         //  in menu từ danh mục cha
-                        printMenu($pdo, 0);
+                        printCategory(0,'client');
                         ?>
                     </ul>
                 </nav>

@@ -5,6 +5,7 @@ require_once('./../models/posts.php');
 require_once('./../models/users.php');
 require_once('./../models/category.php');
 require_once('./../models/tags.php');
+require_once('./../helper.php');
 
 
 if (isset($_POST['title'])) {

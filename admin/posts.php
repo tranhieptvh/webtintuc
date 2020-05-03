@@ -10,8 +10,7 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
-                var_dump($_GET['id']);
-                die();
+                // var_dump($_GET['id']);die();
                 $obj = $posts->getById($_GET['id']);
                 if (file_exists($obj['avatar'])) {
                     unlink($obj['avatar']);
@@ -71,9 +70,9 @@ if (isset($_GET['action'])) {
                         <td><?php echo $r['cate_name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="posts_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <!-- <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a> -->
                             <!-- <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>">Xóa</a> -->
-                            <!-- <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>" title="delete" class="delete" onclick="return confirm('Xóa à?')">Xóa</a> -->
+                            <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>" title="delete" class="delete" onclick="return confirm('Xóa à?')">Xóa</a>
                         </td>
                     </tr>
                 <?php
