@@ -2,20 +2,61 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/posts.php');
+require_once('./../models/category.php');
 require_once('./../helper.php');
 ?>
 
 <?php
 $posts = new Posts();
-// if(isset($_GET['cate_id'])){
+$cats = new Category();
 
-// }
+$count = 10;
+if (isset($_GET['page'])) {
+    $offset = ($_GET['page'] - 1) * $count;
+} else {
+    $_GET['page'] = 1;
+    $offset = 0;
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $cate = $cats->getById($id);
+    if ($cate['parent_id'] == 0) {
+        $allPosts = $posts->getPostsByParentCategory($id);
+        $listPosts = $posts->getPostsByParentCategoryLimit($id, $offset, $count);
+    }
+    if ($cate['parent_id'] != 0) {
+        $allPosts = $posts->getPostsByCategory($id);
+        $listPosts = $posts->getPostsByCategoryLimit($id, $offset, $count);
+    }
+}
 ?>
+
+<!-- Breadcrumb -->
+<div class="container">
+    <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+        <div class="f2-s-1 p-r-30 m-tb-6">
+            <a href="index.php" class="breadcrumb-item f1-s-3 cl9">
+                Home
+            </a>
+            <span class="breadcrumb-item f1-s-3 cl9">
+                <?php echo 'Category: ' . $cate['name'] ?>
+            </span>
+        </div>
+
+        <div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+            <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search">
+            <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+                <i class="zmdi zmdi-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
 <!-- Page heading -->
 <div class="container p-t-4 p-b-40">
     <h2 class="f1-l-1 cl2">
-        Tin mới
+        <?php echo $cate['name'] ?>
     </h2>
 </div>
 
@@ -27,16 +68,7 @@ $posts = new Posts();
                 <div class="row">
 
                     <?php
-                    $count = 10;
-                    if (isset($_GET['page'])) {
-                        $offset = ($_GET['page'] - 1) * $count;
-                    } else {
-                        $_GET['page'] = 1;
-                        $offset = 0;
-                    }
-                    $list = $posts->getAllLimit($offset, $count);
-                    // var_dump($list);die();
-                    foreach ($list as $r) {
+                    foreach ($listPosts as $r) {
                     ?>
                         <div class="col-sm-6 p-r-25 p-r-15-sr991">
                             <!-- Item latest -->
@@ -53,6 +85,14 @@ $posts = new Posts();
                                     </h5>
 
                                     <span class="cl8">
+                                        <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                            <?php echo $r['cate_name'] ?>
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
                                         <span class="f1-s-3">
                                             <?php echo $r['date_created'] ?>
                                         </span>
@@ -69,7 +109,7 @@ $posts = new Posts();
                 <!-- Pagination -->
                 <div class="flex-wr-s-c m-rl--7 p-t-15">
                     <?php
-                    generatePage($posts->getPDO(), 'posts', $count, 'client');
+                    generatePage(count($allPosts), $count, 'client');
                     ?>
                 </div>
             </div>

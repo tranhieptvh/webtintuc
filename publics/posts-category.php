@@ -39,7 +39,7 @@ $cats = new Category();
                                             <!-- Item post -->
                                             <div class="m-b-30">
                                                 <?php
-                                                $post = $posts->getPostsByCategory($r['id'], 0, 1);
+                                                $post = $posts->getPostsByParentCategoryLimit($r['id'], 0, 1);
                                                 foreach ($post as $item) {
                                                 ?>
                                                     <a href="posts-detail.php?id=<?php echo $item['id'] ?>" class="wrap-pic-w hov1 trans-03">
@@ -77,7 +77,7 @@ $cats = new Category();
                                         <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                             <!-- Item post -->
                                             <?php
-                                            $post = $posts->getPostsByCategory($r['id'], 2, 4);
+                                            $post = $posts->getPostsByParentCategoryLimit($r['id'], 2, 4);
                                             foreach ($post as $item) {
                                             ?>
                                                 <div class="flex-wr-sb-s m-b-30">

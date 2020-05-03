@@ -22,7 +22,7 @@ $posts = new Posts();
                 <div class="row p-t-35">
 
                     <?php
-                    $latestPosts = $posts->getLatestPosts();
+                    $latestPosts = $posts->getAllLimit(0,6);
                     foreach ($latestPosts as $r) {
                     ?>
                         <div class="col-sm-6 p-r-25 p-r-15-sr991">
@@ -40,6 +40,13 @@ $posts = new Posts();
                                     </h5>
 
                                     <span class="cl8">
+                                        <a href="posts-list-category.php?id=<?php echo $r['cate_id'] ?>" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                            <?php echo $r['cate_name'] ?>
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
                                         <span class="f1-s-3">
                                             <?php echo $r['date_created'] ?>
                                         </span>

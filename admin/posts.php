@@ -68,7 +68,7 @@ if (isset($_GET['action'])) {
                         <td style="width:500px;"><?php echo $r['title'] ?></td>
                         <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td><?php echo $r['username'] ?></td>
-                        <td><?php echo $r['name'] ?></td>
+                        <td><?php echo $r['cate_name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="posts_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
                             <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>

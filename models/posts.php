@@ -20,7 +20,7 @@ class Posts extends DB implements IModel
 
     function getAllLimit($offset, $count)
     {
-        $stm = $this->db->prepare("SELECT " . self::tableName . ".id AS id, title, " . self::tableName . ".avatar, date_created, username, name 
+        $stm = $this->db->prepare("SELECT " . self::tableName . ".id AS id, title, " . self::tableName . ".avatar, date_created, username, category.name AS cate_name, category.id AS cate_id 
         FROM " . self::tableName . " 
         INNER JOIN category ON posts.cate_id = category.id 
         INNER JOIN users ON posts.created_by_id = users.id 
@@ -140,16 +140,9 @@ class Posts extends DB implements IModel
         return $stm->fetchAll();
     }
 
-    function getLatestPosts()
+    function getPostsByParentCategoryLimit($id, $offset, $count)
     {
-        $stm = $this->db->prepare("SELECT * FROM " . self::tableName . " ORDER BY id DESC LIMIT 0,6");
-        $stm->execute();
-        return $stm->fetchAll();
-    }
-
-    function getPostsByCategory($id, $offset, $count)
-    {
-        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id 
         FROM ' . self::tableName . ' 
         INNER JOIN category 
         ON ' . self::tableName . '.cate_id = category.id 
@@ -160,18 +153,34 @@ class Posts extends DB implements IModel
         return $stm->fetchAll();
     }
 
-    // function getAllPostsByCategory($id)
-    // {
+    function getPostsByParentCategory($id)
+    {
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
+        INNER JOIN category 
+        ON ' . self::tableName . '.cate_id = category.id 
+        WHERE ' . self::tableName . '.cate_id=' . $id . ' OR category.parent_id=' . $id . ' 
+        ORDER BY ' . self::tableName . '.id DESC');
+        $stm->execute();
+        return $stm->fetchAll();
+    }
 
-    //     $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, category.parent_id AS parent_id, cate_id
-    //     FROM ' . self::tableName . ' 
-    //     INNER JOIN category 
-    //     ON ' . self::tableName . '.cate_id = category.id 
-    //     WHERE ' . self::tableName . '.cate_id=' . $id . ' OR category.parent_id=' . $id . ' 
-    //     ORDER BY ' . self::tableName . '.id DESC');
-    //     $stm->execute();
-    //     return $stm->fetchAll();
-    // }
+    function getPostsByCategory($id)
+    {
+        $stm = $this->db->prepare(' SELECT * FROM ' . self::tableName . ' WHERE cate_id=' . $id);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    function getPostsByCategoryLimit($id, $offset, $count)
+    {
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id 
+        FROM ' . self::tableName . ' 
+        INNER JOIN category ON category.id =' . self::tableName . '.cate_id  
+        WHERE cate_id=' . $id . ' 
+        LIMIT ' . $offset . ',' . $count);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
 
     function getPostsByTag($id)
     {
