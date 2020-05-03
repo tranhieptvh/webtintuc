@@ -2,33 +2,14 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/posts.php');
-require_once('./../models/category.php');
 require_once('./../helper.php');
 ?>
 
 <?php
-$posts = new Posts();
-$cats = new Category();
-
-$count = 10;
-if (isset($_GET['page'])) {
-    $offset = ($_GET['page'] - 1) * $count;
-} else {
-    $_GET['page'] = 1;
-    $offset = 0;
-}
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $cate = $cats->getById($id);
-    if ($cate['parent_id'] == 0) {
-        $allPosts = $posts->getPostsByParentCategory($id);
-        $listPosts = $posts->getPostsByParentCategoryLimit($id, $offset, $count);
-    }
-    if ($cate['parent_id'] != 0) {
-        $allPosts = $posts->getPostsByCategory($id);
-        $listPosts = $posts->getPostsByCategoryLimit($id, $offset, $count);
-    }
+if (isset($_GET['search'])) {
+    $keyword = $_GET['search'];
+    $posts = new Posts();
+    $listPosts = $posts->searchPosts($keyword);
 }
 ?>
 
@@ -40,7 +21,7 @@ if (isset($_GET['id'])) {
                 Home
             </a>
             <span class="breadcrumb-item f1-s-3 cl9">
-                <?php echo 'Category: ' . $cate['name'] ?>
+                Tìm kiếm
             </span>
         </div>
     </div>
@@ -49,8 +30,9 @@ if (isset($_GET['id'])) {
 <!-- Page heading -->
 <div class="container p-t-4 p-b-40">
     <h2 class="f1-l-1 cl2">
-        <?php echo $cate['name'] ?>
+        Từ khóa: <?php echo $keyword ?>
     </h2>
+    <p><strong>Số bài viết phù hợp: <?php echo count($listPosts) ?></strong></p>
 </div>
 
 <!-- Post -->
@@ -61,6 +43,13 @@ if (isset($_GET['id'])) {
                 <div class="row">
 
                     <?php
+                    $count = 10;
+                    if (isset($_GET['page'])) {
+                        $offset = ($_GET['page'] - 1) * $count;
+                    } else {
+                        $_GET['page'] = 1;
+                        $offset = 0;
+                    }
                     foreach ($listPosts as $r) {
                     ?>
                         <div class="col-sm-6 p-r-25 p-r-15-sr991">
@@ -102,7 +91,7 @@ if (isset($_GET['id'])) {
                 <!-- Pagination -->
                 <div class="flex-wr-s-c m-rl--7 p-t-15">
                     <?php
-                    generatePage(count($allPosts), $count, 'client');
+                    generatePage(count($listPosts), $count, 'client');
                     ?>
                 </div>
             </div>

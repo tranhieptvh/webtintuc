@@ -225,4 +225,15 @@ class Posts extends DB implements IModel
         WHERE id=' . $id);
         $stm->execute();
     }
+
+    function searchPosts($keyword)
+    {
+        $stm = $this->db->prepare('SELECT ' . self::tableName . '.id, title, avatar, date_created, category.name AS cate_name, cate_id 
+        FROM ' . self::tableName . ' 
+        INNER JOIN category 
+        ON ' . self::tableName . '.cate_id = category.id 
+        WHERE title LIKE "%' . $keyword . '%"');
+        $stm->execute();
+        return $stm->fetchAll();
+    }
 }

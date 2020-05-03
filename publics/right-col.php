@@ -5,6 +5,26 @@ $posts = new Posts();
 $tags = new Tags();
 ?>
 
+<!-- Tìm kiếm -->
+<div class="p-b-55">
+    <div class="how2 how2-cl4 flex-s-c m-b-30">
+        <h3 class="f1-m-2 cl3 tab01-title">
+            Tìm kiếm
+        </h3>
+    </div>
+
+    <form action="posts-search.php" method="GET">
+        <div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+            <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search">
+            <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+                <i class="zmdi zmdi-search"></i>
+                <!-- <input type="submit" value=""> -->
+            </button>
+        </div>
+    </form>
+</div>
+
+
 <!-- TIN XEM NHIỀU -->
 <div>
     <div class="how2 how2-cl4 flex-s-c">
@@ -77,63 +97,4 @@ $tags = new Tags();
 
         </div>
     </div>
-</div>
-
-<!-- Connected -->
-<div class="p-t-50">
-    <div class="how2 how2-cl4 flex-s-c">
-        <h3 class="f1-m-2 cl3 tab01-title">
-            Stay Connected
-        </h3>
-    </div>
-
-    <ul class="p-t-35">
-        <li class="flex-wr-sb-c p-b-20">
-            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-facebook fs-16 cl0 hov-cl0">
-                <span class="fab fa-facebook-f"></span>
-            </a>
-
-            <div class="size-w-3 flex-wr-sb-c">
-                <span class="f1-s-8 cl3 p-r-20">
-                    6879 Fans
-                </span>
-
-                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                    Like
-                </a>
-            </div>
-        </li>
-
-        <li class="flex-wr-sb-c p-b-20">
-            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-twitter fs-16 cl0 hov-cl0">
-                <span class="fab fa-twitter"></span>
-            </a>
-
-            <div class="size-w-3 flex-wr-sb-c">
-                <span class="f1-s-8 cl3 p-r-20">
-                    568 Followers
-                </span>
-
-                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                    Follow
-                </a>
-            </div>
-        </li>
-
-        <li class="flex-wr-sb-c p-b-20">
-            <a href="#" class="size-a-8 flex-c-c borad-3 size-a-8 bg-youtube fs-16 cl0 hov-cl0">
-                <span class="fab fa-youtube"></span>
-            </a>
-
-            <div class="size-w-3 flex-wr-sb-c">
-                <span class="f1-s-8 cl3 p-r-20">
-                    5039 Subscribers
-                </span>
-
-                <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                    Subscribe
-                </a>
-            </div>
-        </li>
-    </ul>
 </div>
