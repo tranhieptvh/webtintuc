@@ -11,12 +11,14 @@ if (isset($_POST['npwd'])) {
     $cpwd = $_POST['cpwd'];
     if (($npwd === $cpwd)) {
         $users->change_pwd($npwd, $id);
+        // echo '<script>alert("Đổi mật khẩu thành công");</script>';
         if (isset($_SESSION['change_pwd_success'])) {
             unset($_SESSION['change_pwd_success']);
         }
         $_SESSION['change_pwd_success'] = 'Đổi thành công';
         header('Location:change_pwd.php');
-    }else {
+    } else {
+        // echo '<script>alert("Đổi mật khẩu thất bại");</script>';
         if (isset($_SESSION['change_pwd_fail'])) {
             unset($_SESSION['change_pwd_fail']);
         }
@@ -25,6 +27,7 @@ if (isset($_POST['npwd'])) {
     }
 }
 ?>
+
 
 
 <!-- Begin Page Content -->

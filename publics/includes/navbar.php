@@ -13,13 +13,24 @@ require_once('./../helper.php');
                         About
                     </a>
 
-                    <a href="register.php" class="left-topbar-item">
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        echo '<a href="logout.php" class="left-topbar-item">
+                        Log out
+                    </a>';
+                    } else {
+                        echo '<a href="register.php" class="left-topbar-item">
                         Sign up
                     </a>
 
                     <a href="login.php" class="left-topbar-item">
                         Log in
-                    </a>
+                    </a>';
+                    }
+                    ?>
+
+
+
                 </div>
 
                 <div class="right-topbar">
@@ -50,7 +61,7 @@ require_once('./../helper.php');
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.php"><img src="assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                <a href="index.php"><img src="assets/images/icons/logo.png" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Button show menu -->
@@ -111,7 +122,7 @@ require_once('./../helper.php');
 
                 <?php
                 //  in menu từ danh mục cha
-                printCategory(0,'client');
+                printCategory(0, 'client');
                 ?>
             </ul>
         </div>
@@ -120,7 +131,7 @@ require_once('./../helper.php');
         <div class="wrap-logo container">
             <!-- Logo desktop -->
             <div class="logo">
-                <a href="index.php"><img src="assets/images/icons/logo-01.png" alt="LOGO"></a>
+                <a href="index.php"><img src="assets/images/icons/logo.png" alt="LOGO"></a>
             </div>
 
             <!-- Banner -->
@@ -145,7 +156,7 @@ require_once('./../helper.php');
 
                         <?php
                         //  in menu từ danh mục cha
-                        printCategory(0,'client');
+                        printCategory(0, 'client');
                         ?>
                     </ul>
                 </nav>

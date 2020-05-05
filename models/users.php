@@ -56,7 +56,30 @@ class Users extends DB implements IModel
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
+        return $this->db->lastInsertId();
+    }
 
+    function register($payload)
+    {
+
+        try {
+            $username = $payload['username'];
+            $password = $payload['pwd'];
+            $fullname = $payload['fullname'];
+            $email = $payload['email'];
+
+            $stm = $this->db->prepare('INSERT INTO ' .
+                self::tableName . '(username,pwd,fullname,email)
+             VALUES(:username, :pwd, :fullname, :email)');
+            $stm->execute(array(
+                ':username' => $username,
+                ':pwd' => md5($password),
+                ':fullname' => $fullname,
+                ':email' => $email
+            ));
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
         return $this->db->lastInsertId();
     }
 

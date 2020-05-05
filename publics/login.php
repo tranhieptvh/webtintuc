@@ -12,7 +12,7 @@ if (isset($_POST['username']) && isset($_POST['pwd'])) {
     $stm = $db->getPDO()->prepare('SELECT * FROM users WHERE username=:username AND pwd=:pwd');
     $stm->execute(array(':username' => $username, ':pwd' => md5($pwd)));
     $users = $stm->fetchAll();
-    //var_dump($user[0]);die();
+    // var_dump($users);die();
     if (count($users) == 1) {
         $_SESSION['user'] = $users['0'];
         header('Location:index.php');

@@ -1,3 +1,18 @@
+<?php
+session_start();
+ob_start();
+
+if (isset($_SESSION['register_success'])) {
+	unset($_SESSION['register_success']);
+}
+if (isset($_SESSION['username_exist'])) {
+	unset($_SESSION['username_exist']);
+}
+if (isset($_SESSION['fail_cpwd'])) {
+	unset($_SESSION['fail_cpwd']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
