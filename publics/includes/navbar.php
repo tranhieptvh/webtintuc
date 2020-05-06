@@ -15,6 +15,9 @@ require_once('./../helper.php');
 
                     <?php
                     if (isset($_SESSION['user'])) {
+                        echo 'Xin chào <a href="profile.php?id=' . $_SESSION['user']['id'] . '" class="left-topbar-item">
+                         ' . $_SESSION['user']['username'] . '
+                    </a>';
                         echo '<a href="logout.php" class="left-topbar-item">
                         Log out
                     </a>';

@@ -104,7 +104,7 @@ if (isset($_POST['id'])) {
                 <label class="col-sm-2 col-form-label">Avatar</label>
                 <img style="width:20%;height:20%;" src="<?php echo $obj['avatar']; ?>" />
                 <div class="col-sm-10">
-                    <input type="file" name="file" />
+                    <input type="file" name="file">
                 </div>
             </div>
 
