@@ -2,15 +2,48 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/posts.php');
+require_once('./../models/comments.php');
 ?>
 
 <?php
 $posts = new Posts();
+$cmt = new Comments();
 
 if (isset($_GET['id'])) {
-	$id = $_GET['id'];
-	$posts->updateViews($id);
-	$post = $posts->getDetailById($id);
+	$post_id = $_GET['id'];
+	$posts->updateViews($post_id);
+	$post = $posts->getDetailById($post_id);
+}
+
+if (isset($_POST['content'])) {
+	if (isset($_SESSION['user'])) {
+		$payload['created_by_id'] = $_SESSION['user']['id'];
+		$payload['content'] = $_POST['content'];
+		$payload['post_id'] = $post_id;
+
+		$count = $cmt->insert($payload);
+		if ($count == 1) {
+			header('Location:posts-detail.php?id=' . $post_id);
+		}
+	} else {
+		echo '<script>alert("Đăng nhập để comment")</script>';
+	}
+}
+
+if (isset($_GET['action'])) {
+	$action = $_GET['action'];
+	switch ($action) {
+		case 'delete':
+			if (is_numeric($_GET['cmt_id'])) {
+				// var_dump($_GET['id']);die();
+				$cmt->delete($_GET['cmt_id']);
+				header('Location:posts-detail.php?id=' . $post_id);
+			}
+			break;
+		default:
+			# code...
+			break;
+	}
 }
 ?>
 
@@ -59,10 +92,6 @@ if (isset($_GET['id'])) {
 
 							<span class="f1-s-3 cl8 m-r-15">
 								<?php echo $post['views'] ?> Views
-							</span>
-
-							<span class="f1-s-3 cl8 m-r-15">
-								<?php echo $post['likes'] ?> Likes
 							</span>
 						</div>
 
@@ -126,28 +155,57 @@ if (isset($_GET['id'])) {
 					</div>
 
 					<!-- Leave a comment -->
-					<div>
-						<h4 class="f1-l-4 cl3 p-b-12">
-							Leave a Comment
-						</h4>
+					<div class="comments">
+						<div class="leave-comment">
+							<div class="how2 how2-cl4 flex-s-c m-b-30">
+								<h3 class="f1-m-2 cl3 tab01-title">
+									Leave a Comment
+								</h3>
+							</div>
 
-						<p class="f1-s-13 cl8 p-b-40">
-							Your email address will not be published. Required fields are marked *
-						</p>
+							<form action="" method="POST">
+								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="content" placeholder="Comment..."></textarea>
+								<input type="submit" class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" value="Post Comment">
+							</form>
+						</div>
 
-						<form>
-							<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..."></textarea>
+						<hr>
 
-							<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Name*">
+						<div class="show-comments">
+							<div class="how2 how2-cl4 flex-s-c m-b-30">
+								<h3 class="f1-m-2 cl3 tab01-title">
+									Comments
+								</h3>
+							</div>
+							<!-- list comment -->
+							<?php
+							$list_cmt = $cmt->getByPostId($post_id);
+							foreach ($list_cmt as $r) {
+							?>
+								<div class="single-comment">
+									<div class="media">
+										<img class="mr-3" style="border-radius: 50%; width: 10%; height: 10%;" src="<?php echo $r['avatar'] ?>" alt="avatar">
+										<div class="media-body">
+											<h5 class="mt-0"><strong>@<?php echo $r['username'] ?></strong></h5>
+											<p><?php echo $r['content'] ?></p>
 
-							<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="email" placeholder="Email*">
+											<?php
+											if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 0) {
+											?>
+												<a href="?action=delete&id=<?php echo $post_id ?>&cmt_id=<?php echo $r['id'] ?>" onclick="return confirm('Xóa à?')">Xóa</a>
+											<?php
+											}
+											?>
 
-							<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="website" placeholder="Website">
+										</div>
+									</div>
+								</div>
+								<hr>
+							<?php
+							}
+							?>
+						</div>
 
-							<button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
-								Post Comment
-							</button>
-						</form>
 					</div>
 				</div>
 			</div>

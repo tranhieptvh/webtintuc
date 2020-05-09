@@ -105,7 +105,7 @@ class Posts extends DB implements IModel
 
     function getDetailById($id)
     {
-        $rows = $this->db->query('SELECT ' . self::tableName . '.id AS id, title, ' . self::tableName . '.avatar, description, content, date_created, likes, views, username, fullname, category.name AS cate_name, category.id AS cate_id 
+        $rows = $this->db->query('SELECT ' . self::tableName . '.id AS id, title, ' . self::tableName . '.avatar, description, content, date_created, views, username, fullname, category.name AS cate_name, category.id AS cate_id 
         FROM ' . self::tableName . ' 
         INNER JOIN category ON posts.cate_id = category.id 
         INNER JOIN users ON posts.created_by_id = users.id 
@@ -221,7 +221,7 @@ class Posts extends DB implements IModel
     function updateViews($id)
     {
         $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
-        SET views= views+1 
+        SET views = views + 1 
         WHERE id=' . $id);
         $stm->execute();
     }

@@ -149,7 +149,7 @@ require_once('./../helper.php');
                 <!-- Menu desktop -->
                 <nav class="menu-desktop">
                     <a class="logo-stick" href="index.php">
-                        <img src="assets/images/icons/logo-01.png" alt="LOGO">
+                        <img src="assets/images/icons/logo.png" alt="LOGO">
                     </a>
 
                     <ul class="main-menu">
