@@ -3,11 +3,13 @@ require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/posts.php');
 require_once('./../models/comments.php');
+require_once('./../models/tags.php');
 ?>
 
 <?php
 $posts = new Posts();
 $cmt = new Comments();
+$tags = new Tags();
 
 if (isset($_GET['id'])) {
 	$post_id = $_GET['id'];
@@ -114,13 +116,19 @@ if (isset($_GET['action'])) {
 							</span>
 
 							<div class="flex-wr-s-s size-w-0">
-								<a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">
-									Streetstyle
-								</a>
+								<?php
+								$str = $post['tag_id'];
+								$tag_id = explode(',', $str);
+								foreach ($tag_id as $r) {
+									$tag = $tags->getById($r);
+								?>
 
-								<a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">
-									Crafts
-								</a>
+									<a href="posts-list-tag.php?id=<?php echo $r ?>" class="f1-s-12 cl8 hov-link1 m-r-15">
+										<?php echo '#' . $tag['name'] ?>
+									</a>
+								<?php
+								}
+								?>
 							</div>
 						</div>
 

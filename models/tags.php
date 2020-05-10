@@ -73,7 +73,8 @@ class Tags extends DB implements IModel
         return $r;
     }
 
-    function getCount(){
+    function getCount()
+    {
         $row = $this->db->query('select count(*) as count from ' . self::tableName);
         foreach ($row as $r) {
             $count = $r['count'];
