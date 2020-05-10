@@ -60,7 +60,8 @@ if (isset($_GET['action'])) {
                         <td><?php echo $r['name'] ?></td>
                         <td>
                             <a class="btn btn-warning" href="tags_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>" title="delete" class="delete" onclick="return confirm('Xóa à?')">Xóa</a>
+                            <!-- <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a> -->
                         </td>
                     </tr>
                 <?php

@@ -76,7 +76,8 @@ if (isset($_GET['action'])) {
                         <td><img style="width:50px;height:50px;" src="<?php echo $r['avatar']; ?>" /></td>
                         <td>
                             <a class="btn btn-warning" href="users_update.php?id=<?php echo $r['id'] ?>">Sửa</a>
-                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a>
+                            <a class="btn btn-danger" href="?action=delete&id=<?php echo $r['id'] ?>" title="delete" class="delete" onclick="return confirm('Xóa à?')">Xóa</a>
+                            <!-- <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Xoá</a> -->
                         </td>
                     </tr>
                 <?php
