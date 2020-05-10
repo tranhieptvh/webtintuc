@@ -6,22 +6,43 @@ require_once('./../models/users.php');
 require_once('./../models/category.php');
 require_once('./../models/tags.php');
 require_once('./../helper.php');
+?>
 
 
+<?php
 if (isset($_POST['title'])) {
     $posts = new Posts;
-    $insertId = $posts->insert($_POST);
+
+    if (isset($_POST['tag_id'])) {
+        $tag_id = array();
+        foreach ($_POST['tag_id'] as $r) {
+            $tag_id[] = $r;
+        }
+        $str = implode(',', $tag_id);
+
+        $payload['title'] = $_POST['title'];
+        $payload['description'] = $_POST['description'];
+        $payload['content'] = $_POST['content'];
+        $payload['created_by_id'] = $_POST['created_by_id'];
+        $payload['tag_id'] = $str;
+        $payload['cate_id'] = $_POST['cate_id'];
+        $payload['is_featured'] = $_POST['is_featured'];
+
+        $insertId = $posts->insert($payload);
+    }
+
+    //upload avatar
     if (isset($_FILES['file']) && $_FILES['file']['name'] != '') {
         $filename = './../uploads/' . time() . $_FILES['file']['name'];
         // echo $filename;
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
         $posts->updateAvatar($filename, $insertId);
     }
+
     if ($insertId != 0) {
         $_SESSION['add_post_success'] = 'Thêm thành công';
     }
 }
-
 ?>
 
 <!-- Begin Page Content -->
@@ -98,17 +119,15 @@ if (isset($_POST['title'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tag</label>
                 <div class="col-sm-10">
-                    <select class="custom-select col-sm-2" name="tag_id">
-                        <?php
-                        $tags = new Tags();
-                        $listTags = $tags->getAll();
-                        foreach ($listTags as $r) {
-                        ?>
-                            <option value="<?php echo $r['id'] ?>"><?php echo $r['name'] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
+                    <?php
+                    $tags = new Tags();
+                    $listTags = $tags->getAll();
+                    foreach ($listTags as $r) {
+                    ?>
+                        <input type="checkbox" name="tag_id[]" value="<?php echo $r['id'] ?>"> <?php echo $r['name'] ?><br>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="form-group row">
