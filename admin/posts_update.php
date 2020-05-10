@@ -5,6 +5,7 @@ require_once('./../models/posts.php');
 require_once('./../models/users.php');
 require_once('./../models/category.php');
 require_once('./../models/tags.php');
+require_once('./../helper.php');
 
 $posts = new Posts;
 if (isset($_GET['id'])) {
@@ -16,12 +17,33 @@ if (isset($_GET['id'])) {
         header('Location:index.php');
     }
 }
+
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
-    $posts->update($_POST);
+    if (isset($_POST['tag_id'])) {
+        $tag_id = array();
+        foreach ($_POST['tag_id'] as $r) {
+            $tag_id[] = $r;
+        }
+        $str = implode(',', $tag_id);
+
+        $payload['id'] = $_POST['id'];
+        $payload['title'] = $_POST['title'];
+        $payload['description'] = $_POST['description'];
+        $payload['content'] = $_POST['content'];
+        $payload['created_by_id'] = $_POST['created_by_id'];
+        $payload['tag_id'] = $str;
+        $payload['cate_id'] = $_POST['cate_id'];
+        $payload['is_featured'] = $_POST['is_featured'];
+
+        // var_dump($payload);die();
+
+        $posts->update($payload);
+    }
+
+    //update avatar
     if (isset($_FILES['file']) && $_FILES['file']['name'] != '') {
         $filename = './../uploads/' . time() . $_FILES['file']['name'];
-
         //xoá file đi
         if (file_exists($obj['img'])) {
             try {
@@ -34,6 +56,7 @@ if (isset($_POST['id'])) {
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
         $posts->updateAvatar($filename, $id);
     }
+
     header('Location:posts_update.php?id=' . $id);
     // ob_end_flush();
 }
@@ -115,22 +138,27 @@ if (isset($_POST['id'])) {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tag</label>
                 <div class="col-sm-10">
-                    <select class="custom-select col-sm-2" name="tag_id">
+
+                    <?php
+                    $str = $obj['tag_id'];
+                    $tag_id = explode(',', $str);
+                    // var_dump($tag_id);die();
+                    $tags = new Tags();
+                    $listTags = $tags->getAll();
+                    foreach ($listTags as $r) {
+                        if (findInArray($tag_id, $r['id'])) {
+                    ?>
+                            <input type="checkbox" checked name="tag_id[]" value="<?php echo $r['id'] ?>"> <?php echo $r['name'] ?> <br>
                         <?php
-                        $tags = new Tags();
-                        $listTags = $tags->getAll();
-                        foreach ($listTags as $r) {
-                            if ($r['id'] == $obj['tag_id']) {
+                        } else {
                         ?>
-                                <option selected value="<?php echo $r['id'] ?>"><?php echo $r['name'] ?></option>
-                            <?php
-                            }
-                            ?>
-                            <option value="<?php echo $r['id'] ?>"><?php echo $r['name'] ?></option>
+                            <input type="checkbox" name="tag_id[]" value="<?php echo $r['id'] ?>"> <?php echo $r['name'] ?> <br>
                         <?php
                         }
                         ?>
-                    </select>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="form-group row">

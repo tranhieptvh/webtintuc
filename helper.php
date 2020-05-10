@@ -3,6 +3,9 @@ require_once('models/category.php');
 ?>
 
 <?php
+/**
+ * Phan trang
+ */
 function generatePage($allRows, $count, $role)
 {
     $page = ceil($allRows / $count); //11/5 = 2.2 xấp xỉ 3 -> 2 trang
@@ -28,6 +31,9 @@ function generatePage($allRows, $count, $role)
     }
 }
 
+/**
+ * Show category theo parent_id
+ */
 function printCategory($parent_id, $role)
 {
     $cats = new Category();
@@ -55,4 +61,17 @@ function printCategory($parent_id, $role)
             echo '</ul>';
         }
     }
+}
+
+/**
+ * tim phan tu trong mang -> posts update
+ */
+function findInArray($array, $value)
+{
+    for ($i = 0; $i < count($array); $i++) {
+        if ($value == $array[$i]) {
+            return true;
+        }
+    }
+    return false;
 }
