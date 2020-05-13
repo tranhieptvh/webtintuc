@@ -115,6 +115,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </form>
                     <a href="profile_update.php?id=<?php echo $_SESSION['user']['id'] ?>" class="btn btn-success">Change Info</a>
+                    <a href="change_pwd.php?id=<?php echo $_SESSION['user']['id'] ?>" class="btn btn-success">Change Password</a>
                     <a href="index.php" class="btn btn-secondary">Back</a>
                 </div>
             </div>

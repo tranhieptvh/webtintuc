@@ -218,6 +218,24 @@ class Posts extends DB implements IModel
         return $stm->fetchAll();
     }
 
+    // function getPostsByTag1($tag_id)
+    // {
+    //     $stm = $this->db->prepare('SELECT id, tag_id FROM ' . self::tableName);
+    //     $stm->execute();
+    //     $rows = $stm->fetchAll();
+    //     $arr = array();
+    //     foreach ($rows as $r) {
+    //         $sql = 'SELECT FIND_IN_SET(' . $tag_id . ', ' . $r . '[' . 'tag_id' . '])';
+    //         $stm1 = $this->db->prepare($sql);
+    //         $stm1->execute();
+    //         //not (null, 0)
+    //         if(){
+    //             $arr[] = $r['id'];
+    //         }
+    //     }
+    //     return $arr;
+    // }
+
     function updateViews($id)
     {
         $stm = $this->db->prepare('UPDATE ' . self::tableName . ' 
