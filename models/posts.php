@@ -204,7 +204,8 @@ class Posts extends DB implements IModel
 
     function getPostsByTag($id)
     {
-        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' WHERE tag_id=' . $id);
+        $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
+        WHERE FIND_IN_SET(' . $id . ',tag_id)!=0');
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -212,29 +213,11 @@ class Posts extends DB implements IModel
     function getPostsByTagLimit($id, $offset, $count)
     {
         $stm = $this->db->prepare('SELECT * FROM ' . self::tableName . ' 
-        WHERE tag_id=' . $id . ' 
+        WHERE FIND_IN_SET(' . $id . ',tag_id)!=0  
         LIMIT ' . $offset . ',' . $count);
         $stm->execute();
         return $stm->fetchAll();
     }
-
-    // function getPostsByTag1($tag_id)
-    // {
-    //     $stm = $this->db->prepare('SELECT id, tag_id FROM ' . self::tableName);
-    //     $stm->execute();
-    //     $rows = $stm->fetchAll();
-    //     $arr = array();
-    //     foreach ($rows as $r) {
-    //         $sql = 'SELECT FIND_IN_SET(' . $tag_id . ', ' . $r . '[' . 'tag_id' . '])';
-    //         $stm1 = $this->db->prepare($sql);
-    //         $stm1->execute();
-    //         //not (null, 0)
-    //         if(){
-    //             $arr[] = $r['id'];
-    //         }
-    //     }
-    //     return $arr;
-    // }
 
     function updateViews($id)
     {

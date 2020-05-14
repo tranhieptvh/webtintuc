@@ -34,8 +34,6 @@ require_once('includes/navbar.php');
 					<p class="f1-s-11 cl6 p-b-25">
 						<strong>Author: </strong>
 						- Trần Văn Hiệp <br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						- Huyền Amy
 					</p>
 					<p class="f1-s-11 cl6 p-b-25">
 						<strong>Email: </strong>tranhieptvh@gmail.com
