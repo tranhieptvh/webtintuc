@@ -14,8 +14,12 @@ if (isset($_GET['action'])) {
                 if (file_exists($obj['avatar'])) {
                     unlink($obj['avatar']);
                 }
-                $users->delete($_GET['id']);
-                header('Location:users.php');
+                if ($_GET['id'] == $_SESSION['user']['id']) {
+                    echo '<script>alert("Không được tự xóa tài khoản!")</script>';
+                } else {
+                    $users->delete($_GET['id']);
+                    header('Location:users.php');
+                }
             }
             break;
         default:
