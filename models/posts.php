@@ -98,7 +98,7 @@ class Posts extends DB implements IModel
     {
         $rows = $this->db->query('SELECT * FROM ' . self::tableName . ' WHERE id=' . $id);
         foreach ($rows as $r) {
-            $row  = $r;
+            // $row  = $r;
         }
         return $r;
     }

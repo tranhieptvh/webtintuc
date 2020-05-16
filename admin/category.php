@@ -2,16 +2,30 @@
 require_once('includes/header.php');
 require_once('includes/navbar.php');
 require_once('./../models/category.php');
+require_once('./../models/posts.php');
 require_once('./../helper.php');
 
-$cate = new Category();
+$cats = new Category();
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     switch ($action) {
         case 'delete':
             if (is_numeric($_GET['id'])) {
-                $cate->delete($_GET['id']);
-                header('Location:category.php');
+                $cate_id = $_GET['id'];
+                $cate = $cats->getById($cate_id);
+                $posts = new Posts();
+                if ($cate['parent_id'] == 0) {
+                    $listPosts = $posts->getPostsByParentCategory($cate_id);
+                } else {
+                    $listPosts = $posts->getPostsByCategory($cate_id);
+                }
+
+                if (count($listPosts) > 0) {
+                    echo '<script>alert("Category có bài viết, không được xóa!")</script>';
+                } else {
+                    $cats->delete($cate_id);
+                    header('Location:category.php');
+                }
             }
             break;
         default:
@@ -39,7 +53,7 @@ if (isset($_GET['action'])) {
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
-            
+
             <a class="btn btn-primary" href="cate_add.php">Thêm</a>
             <br>
             <br>
@@ -53,7 +67,7 @@ if (isset($_GET['action'])) {
                     $_GET['page'] = 1;
                     $offset = 0;
                 }
-                $list = $cate->getAllLimit($offset, $count);
+                $list = $cats->getAllLimit($offset, $count);
                 foreach ($list as $r) {
                 ?>
                     <tr>
@@ -75,7 +89,7 @@ if (isset($_GET['action'])) {
         <nav aria-label="...">
             <ul class="pagination">
                 <?php
-                generatePage($cate->getCount(), $count, 'admin');
+                generatePage($cats->getCount(), $count, 'admin');
                 ?>
             </ul>
         </nav>
